@@ -191,3 +191,6 @@ MVPリリース後のユーザーの反応に応じて、実装するかどう�
 - 開発環境：Docker
 - バージョン管理システム：Git/GitHub
 - Web API：Google Maps Platform（Maps JavaScript API、Places API）
+
+## ■ 画面遷移図
+https://www.figma.com/design/22ZUP93fbc1EnAmELKwKOZ/BeanTrip_%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=L7loZF9jJERmkZJN-1
