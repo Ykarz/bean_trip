@@ -72,7 +72,7 @@ Google Mapsを使って、豆を購入できるお店を検索できます。ま
 
 ## ■ 機能候補
 
-### MVP リリース時
+### MVPリリース時
 
 **豆診断**
 
@@ -99,7 +99,9 @@ Google Mapsを使って、豆を購入できるお店を検索できます。ま
   - 銘柄、産地、焙煎度で豆を検索できる
 - 豆詳細機能
   - 豆の画像と豆の詳細情報が表示される
-  - 詳細で表示される情報については、「豆投稿機能」を参照
+  - 投稿に店舗情報が登録されている場合、Google Mapsが表示される
+  - マップには店舗がピンで表示され、またマップ左上には店舗名、住所、Google MapsのWebアプリへのリンクが表示される
+  - その他、詳細で表示される情報については、「豆投稿機能」を参照
 - 豆投稿機能
   - 購入した豆を投稿して、他のユーザーに共有できる機能
   - 豆の画像をアップロードできる
@@ -141,7 +143,8 @@ Google Mapsを使って、豆を購入できるお店を検索できます。ま
 - 豆一覧から各豆にいいねできる機能
 - 投稿された豆のブックマーク機能
 
-以下はMVPリリース後のユーザーの反応に応じて、実装するかどうかを判断します
+以下はMVPリリース後のユーザーの反応に応じて、実装するかどうかを判断します。
+
 - 豆詳細にコメントを投稿できる機能
 - コメント編集機能
 - コメント削除機能
@@ -152,9 +155,10 @@ Google Mapsを使って、豆を購入できるお店を検索できます。ま
 - お店のブックマーク機能
 
 以下は実装するか悩んでいる機能です。口コミについては、Google Mapsのレビューで代用できるのでは？と思っています。
-MVPリリース後のユーザーの反応に応じて、実装するかどうかを判断します
+MVPリリース後のユーザーの反応に応じて、実装するかどうかを判断します。
+
 - お店一覧機能
-	 - DBに登録されているお店がカード形式で表示される
+  - DBに登録されているお店がカード形式で表示される
 - お店一覧からの検索機能
 - お店への口コミ投稿機能
 - 口コミ編集機能
@@ -177,7 +181,7 @@ MVPリリース後のユーザーの反応に応じて、実装するかどう�
 ## ■ 機能の実装方針予定
 
 - ログイン・ログアウト機能：[gem devise](https://github.com/heartcombo/devise)
-- 画像の投稿・画像の加工処理：ActiveStorage、[gem MiniMagick](https://github.com/minimagick/minimagick)
+- 画像の投稿・画像の加工処理：[gem CarrierWave](https://github.com/carrierwaveuploader/carrierwave)、[gem MiniMagick](https://github.com/minimagick/minimagick)
 - 画像ファイルのストレージ：Amazon S3
 - 店舗検索：Google Maps Platform（[Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/overview?hl=ja)、[Places API](https://developers.google.com/maps/documentation/places/web-service/overview?hl=ja)）、[gem Geocoder](https://github.com/alexreisner/geocoder)
 - 検索機能、オートコンプリート機能：[gem ransack](https://github.com/activerecord-hackery/ransack)、[Stimulus Autocomplete](https://github.com/afcapel/stimulus-autocomplete)
