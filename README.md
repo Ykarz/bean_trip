@@ -198,4 +198,4 @@ https://www.figma.com/design/22ZUP93fbc1EnAmELKwKOZ/BeanTrip_%E7%94%BB%E9%9D%A2%
 
 ## ■ ER図
 ER図ファイル：https://drive.google.com/file/d/1i6Iw9hDTPTfSpHio6sNUAxD7x7QafzYX/view?usp=sharing
-[![Image from Gyazo](https://i.gyazo.com/59165020c1b1d9744b3cc4e7595fc1f6.png)](https://gyazo.com/59165020c1b1d9744b3cc4e7595fc1f6)
+[![Image from Gyazo](https://i.gyazo.com/37bdc5ac4037591f50c1a0e275ea69c6.png)](https://gyazo.com/37bdc5ac4037591f50c1a0e275ea69c6)
