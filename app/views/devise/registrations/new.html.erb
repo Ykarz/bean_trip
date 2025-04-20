@@ -5,7 +5,7 @@
       <p class="text-base font-body">～ 投稿やブックマークが可能になります ～</p>
     </div>
 
-    <%= form_with model: @user, url: user_registration_path(resource_name), local: true do |f|  %>
+    <%= form_with model: @user, url: user_registration_path, local: true do |f|  %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="field text-left text-base font-body mt-[50px] mb-[40px] space-y-[10px]">
         <%= f.label :name, "ユーザー名", class: "w-full font-bold" %>
@@ -30,7 +30,7 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered input-primary form-control w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: "パスワードをもう一度入力" %>
       </div>
 
-      <div class="actions text-center mb-[50px]">
+      <div class="actions text-center w-full mb-[50px]">
         <%= f.submit "新規登録", class: "btn btn-primary w-[200px] h-[50px]" %>
       </div>
     <% end %>
