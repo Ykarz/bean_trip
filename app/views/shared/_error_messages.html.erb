@@ -1,4 +1,4 @@
-<% if resource.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation" data-turbo-cache="false" class="mt-[50px] mb-[40px]">
     <div role="alert" class="alert alert-error flex flex-col items-start space-y-[10px] font-body text-base">
       <!-- エラーアイコンとメッセージの概要を横並びにする -->
@@ -15,15 +15,12 @@
             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span class="font-bold">
-          <%= I18n.t("errors.messages.not_saved",
-                    count: resource.errors.count,
-                    resource: resource.class.model_name.human.downcase)
-          %>
+          <%= object.errors.count %><%= t('errors.error_count') %>
         </span>
       </div>
       <!-- 個別のエラーメッセージをリスト形式で表示 -->
       <ul class="list-disc list-inside text-error-content pl-[10px]">
-        <% resource.errors.full_messages.each do |message| %>
+        <% object.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
