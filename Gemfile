@@ -41,6 +41,12 @@ gem "tailwindcss-ruby", "3.4.17"  # "3.4.17"の部分がTailwindのバージョ�
 # 'devise'をインストール
 gem 'devise'
 
+# Railsアプリを多言語化するためのgemである'rails_i18n'をインストール
+gem 'rails-i18n', '~> 7.0.0'
+
+# 'devise'を多言語化するためのgemをインストール
+gem 'devise-i18n'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
