@@ -19,9 +19,6 @@
 
       <div class="field text-left text-base font-body mb-[40px] space-y-[10px]">
         <%= f.label :password, class: "w-full font-bold" %>
-        <% if @minimum_password_length %>
-          <span>(<%= t('devise.registrations.new.minimum_password_length', password_length: @minimum_password_length) %>)</span>
-        <% end %>
         <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered input-primary form-control w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('devise.registrations.new.minimum_password_length', password_length: @minimum_password_length) %>
       </div>
 
