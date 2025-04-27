@@ -1,5 +1,5 @@
 module ApplicationHelper
-  # 適切なdaisyUIのコンポーネントを呼び出すため、フラッシュメッセージのキーの変換を行うための関数を定義
+  # 適切なdaisyUIのコンポーネントを呼び出すため、フラッシュメッセージのキーの変換を行うためのメソッド
   # 'devise'のフラッシュメッセージのキーは、失敗系が:alertで、成功系が:noticeらしい
   def flash_type(key)
     case key.to_sym
@@ -10,7 +10,7 @@ module ApplicationHelper
     end
   end
 
-  # フラッシュメッセージのキーに応じて、svgのパスを生成する関数を定義
+  # フラッシュメッセージのキーに応じて、svgのパスを生成するメソッドを定義
   def flash_icon_path(key)
     case key.to_sym
     when :alert
