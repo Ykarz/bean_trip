@@ -26,6 +26,9 @@
         <%= render 'shared/header' %>
       </header>
       <main class="flex-grow">
+        <div class="px-[10px]">
+          <%= render 'shared/flash_message' %>
+        </div>
         <%= yield %>
       </main>
       <footer>

@@ -8,6 +8,13 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,html}'
   ],
+  // 動的に生成されるクラスはデフォルトだと、適切にビルドされないので、'safelist'に記述しておく
+  safelist: [
+    'alert-success',
+    'alert-error',
+    'alert-warning',
+    'alert-info',
+  ],
   theme: {
     colors: {
       'black': '#2a1e16',

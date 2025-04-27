@@ -1,0 +1,19 @@
+<% flash.each do |message_type, message| %>
+  <div role="alert" class="alert alert-<%= flash_type(message_type) %> flex flex-col items-start w-full mt-[10px] mx-auto font-body text-base">
+    <!-- アイコンとメッセージを横並びにする -->
+    <div class="flex items-center space-x-[10px]">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-[25px] w-[25px] shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="<%= flash_icon_path(message_type) %>" />
+      </svg>
+      <span class="font-bold"><%= message %></span>
+    </div>
+  </div>
+<% end %>
