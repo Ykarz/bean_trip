@@ -8,7 +8,7 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,html}'
   ],
-  // 動的に生成されるクラスは仕様上、デフォルトだと未使用扱いになってしまうので、'safelist'に記述しておく
+  // 動的に生成されるクラスはデフォルトだと、適切にビルドされないので、'safelist'に記述しておく
   safelist: [
     'alert-success',
     'alert-error',
