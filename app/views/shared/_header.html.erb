@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between w-full h-full">
       <%= link_to "Bean Trip", root_path, class: "flex-none text-base-100 text-4xl font-heading font-bold mr-[40px]" %>
       <div class="flex-none text-base-100 text-base font-bold font-body space-x-[40px]">
-        <%= link_to "豆診断", "#" %>
+        <%= link_to "豆診断", new_diagnosis_path %>
         <%= link_to "豆検索・豆投稿", "#" %>
         <%= link_to "店舗検索", "#" %>
         <% if user_signed_in? %>

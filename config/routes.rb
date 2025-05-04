@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "static#top"
 
+  # 豆診断機能へのルーティング
+  resources :diagnoses, only: %i[new create show]
+
   # 'devise'の各種コントローラへのルーティング
   devise_for :users,
             path: "",

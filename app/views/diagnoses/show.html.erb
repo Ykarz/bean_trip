@@ -1,0 +1,36 @@
+<div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
+  <div class="w-full text-black">
+    <div class="text-center space-y-[50px]">
+      <h2 class="text-4xl font-heading font-bold"><%= t('.title') %></h2>
+      <p class="text-base font-body"><%= t('.description') %></p>
+    </div>
+    <div class="w-full mt-[50px]">
+      <% if @answer == "111" %>
+        <%= render 'geisya' %>
+      <% elsif @answer == "110" %>
+        <%= render 'mocha' %>
+      <% elsif @answer == "101" %>
+        <%= render 'blue_mountain' %>
+      <% elsif @answer == "100" %>
+        <%= render 'cuba_crystal_mountain' %>
+      <% elsif @answer == "011" %>
+        <%= render 'guatemala' %>
+      <% elsif @answer == "010" %>
+        <%= render 'colombia_emerald_mountain' %>
+      <% elsif @answer == "001" %>
+        <%= render 'mandheling' %>
+      <% elsif @answer == "000" %>
+        <%= render 'vietnam' %>
+      <% else %>
+        <h3 class="text-center text-3xl font-heading">
+          無効な回答です。<br>
+          再度、診断をお願いいたします。
+        </h3>
+      <% end %>
+    </div>
+    <div class="flex flex-col items-center w-full mt-[50px] space-y-[50px]">
+      <%= link_to t('.to_diagnosis_page'), new_diagnosis_path, class: "btn btn-warning w-[200px] h-[50px]" %>
+      <%= link_to t('.to_bean_index'), "#", class: "btn btn-primary w-[200px] h-[50px]" %>
+    </div>
+  </div>
+</div>
