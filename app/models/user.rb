@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   # nameカラムに対するバリデーション：空の値を許容しない、最小4文字、最大30文字
   validates :name, presence: true, length: { minimum: 4, maximum: 30 }
+
+  has_many :beans, dependent: :destroy
 end
