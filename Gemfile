@@ -56,6 +56,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # ダミーデータ生成用の'faker'をインストール
+  gem 'faker'
 end
 
 group :development do
