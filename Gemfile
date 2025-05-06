@@ -47,6 +47,9 @@ gem 'rails-i18n', '~> 7.0.0'
 # 'devise'を多言語化するためのgemをインストール
 gem 'devise-i18n'
 
+# 環境変数を管理するgem 'dotenv-rails'をインストール
+gem 'dotenv-rails'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
