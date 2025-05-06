@@ -1,5 +1,6 @@
 class BeansController < ApplicationController
   def index
+    @beans = Bean.includes(:user)
   end
 
   def new; end

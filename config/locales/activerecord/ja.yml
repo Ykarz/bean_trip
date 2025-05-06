@@ -2,6 +2,9 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      country: 生産国
+      store: 店舗
+      bean: コーヒー豆
     attributes:
       user:
         email: メールアドレス
@@ -9,3 +12,32 @@ ja:
         avatar: アバター
         password: パスワード
         password_confirmation: パスワード（確認用）
+      country:
+        name: 生産国名
+      store:
+        place_id: プレイスID
+        name: 店舗名
+        post_code: 郵便番号
+        address: 住所
+        phone_number: 電話番号
+        opening_hours: 営業時間
+        web_site_url: WebサイトURL
+        rating: レビュー点数
+        image: 店舗画像
+        latitude: 緯度
+        longitude: 経度
+      bean:
+        name: 銘柄
+        area: 生産地区
+        farm: 生産農園
+        roast_level: 焙煎度
+        blended: ブレンド or ストレート
+        bitterness: 苦味
+        sweetness: 甘味
+        acidity: 酸味
+        body: コク
+        aroma: 香り
+        image: 投稿画像
+        comment: コメント
+        created_at: 作成日
+        updated_at: 更新日
