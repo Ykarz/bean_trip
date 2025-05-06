@@ -38,3 +38,6 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# '/'（ルートディレクトリ）下の環境変数管理ファイルをGitの追跡対象から除外
+/.env
