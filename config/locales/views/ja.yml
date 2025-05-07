@@ -23,3 +23,24 @@ ja:
     index:
       title: 豆一覧
       to_new_post: 新規投稿
+    new:
+      title: 豆新規投稿
+      description: 〜 お気に入りのコーヒー豆を投稿できます 〜
+      taste_balance: 味バランス
+      label:
+        country: 生産国名
+        store: 購入店舗
+      placeholder:
+        name: 銘柄を入力（必須）
+        country: 国名を入力（必須）
+        area: 地区名を入力（任意）
+        farm: 農園名を入力（任意）
+        roast_level: 焙煎度を選択（任意）
+        blended: どちらかを選択（任意）
+        taste_balance: 数値を選択（任意）
+        comment: コメントを入力（必須）
+      submit: 新規投稿
+      back_to_bean_index: 一覧へ戻る
+    create:
+      success: 投稿が完了しました
+      failure: 投稿に失敗しました
