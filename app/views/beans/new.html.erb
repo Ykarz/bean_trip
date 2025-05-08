@@ -16,8 +16,9 @@
 
       <!-- 生産国の入力欄 -->
       <div class="form-control text-left text-base font-body mb-[40px]">
-        <%= f.label :country, "生産国名", class: "label w-full font-bold" %>
-        <%= f.text_field :country, autofocus: true, class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
+        <%= f.label :country, t('.label.country'), class: "label w-full font-bold" %>
+        <!-- @bean.countryが存在すれば、それをフィールドの初期値とする -->
+        <%= f.text_field :country, autofocus: true, value: "", class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
       </div>
 
       <div class="flex font-body mb-[40px] space-x-[20px]">
@@ -44,6 +45,14 @@
           <%= f.label :blended, "ブレンド or ストレート", class: "label w-full font-bold" %>
           <%= f.select :blended, options_for_select([["ブレンド", true], ["ストレート", false]]), { include_blank: t('.placeholder.blended') }, class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
         </div>
+      </div>
+
+      <!-- 購入店舗情報の入力欄 -->
+      <div class="form-control text-left text-base font-body mt-[50px] mb-[40px]">
+        <%= f.label :store, t('.label.store'), class: "label w-full font-bold" %>
+        <%= f.text_field :store, id: "Store", autofocus: true, autocomplete: "off", class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.store') %>
+        <!-- 'hidden_field'で店舗の'place_id'を送信 -->
+        <%= f.hidden_field :place_id, id: "PlaceId" %>
       </div>
 
       <!-- 味バランスの選択欄（後々レーティング形式に移行する） -->
@@ -81,3 +90,32 @@
     </div>
   </div>
 </div>
+
+<!-- 店舗情報入力フィールドに、Places APIを使用したオートコンプリート機能を追加するためのJS -->
+<script>
+  function initAutocomplete () {
+    document.addEventListener('DOMContentLoaded', function () {
+      const inputStore = document.getElementById('Store');
+      const inputPlaceId = document.getElementById('PlaceId');
+
+      // オートコンプリートのオプション
+      const options = {
+        types: ['establishment'],
+        componentRestrictions: { country: 'JP' }
+      };
+
+      // オートコンプリート適用
+      const autocompleteStore = new google.maps.places.Autocomplete(inputStore, options);
+
+      // 店舗情報入力フィールドに変更が加えられた時
+      autocompleteStore.addListener('place_changed', function() {
+        const place = autocompleteStore.getPlace();
+        inputStore.value = place.name;
+        inputPlaceId.value = place.place_id
+      });
+    });
+  }
+</script>
+
+<!-- Place Autocompleteを使用するためのライブラリを読み込む -->
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&libraries=places&callback=initAutocomplete"></script>
