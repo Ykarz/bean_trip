@@ -6,5 +6,6 @@ class Bean < ApplicationRecord
 
   belongs_to :user
   belongs_to :country
-  belongs_to :store
+  # Storeモデルに関連付いたカラムは空値を許容したいので、'optional: true'とする
+  belongs_to :store, optional: true
 end

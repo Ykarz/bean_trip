@@ -1,7 +1,8 @@
 <div class="flex flex-col items-center w-[1000px] mx-auto">
   <div class="w-full text-black">
     <div class="mt-[50px] text-right">
-      <%= link_to t('.to_new_post'), new_bean_path, class: "btn btn-warning w-[200px] h-[50px]" %>
+      <!-- 遷移先のJSイベントを発火させるためにTurboは無効化 -->
+      <%= link_to t('.to_new_post'), new_bean_path, data: { turbo: false }, class: "btn btn-warning w-[200px] h-[50px]" %>
     </div>
     <h2 class="text-center text-4xl font-bold font-heading mt-[50px]"><%= t('.title') %></h2>
 
