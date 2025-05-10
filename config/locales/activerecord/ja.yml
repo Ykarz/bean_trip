@@ -3,7 +3,7 @@ ja:
     models:
       user: ユーザー
       country: 生産国
-      store: 店舗
+      store: 購入店舗
       bean: コーヒー豆
     attributes:
       user:
@@ -27,9 +27,9 @@ ja:
         latitude: 緯度
         longitude: 経度
       bean:
-        name: 銘柄
-        area: 生産地区
-        farm: 生産農園
+        name: 銘柄（品名）
+        area: 生産地区名
+        farm: 生産農園名
         roast_level: 焙煎度
         blended: ブレンド or ストレート
         bitterness: 苦味

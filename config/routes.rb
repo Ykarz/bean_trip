@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   # 豆診断機能へのルーティング
   resources :diagnoses, only: %i[new create show]
 
-  # 豆投稿機能へのルーティング
-  resources :beans, only: %i[index]
+  # 豆検索・豆投稿機能へのルーティング
+  resources :beans, only: %i[index new create]
 
   # 'devise'の各種コントローラへのルーティング
   devise_for :users,
