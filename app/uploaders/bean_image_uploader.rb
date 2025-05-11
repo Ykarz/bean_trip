@@ -7,8 +7,12 @@ class BeanImageUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   # ローカルストレージを使うなら、'storage :file'を選択
-  storage :file
-  # storage :fog
+  # 本番環境ではAWS S3を使用し、それ以外ではローカルストレージを使用
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
