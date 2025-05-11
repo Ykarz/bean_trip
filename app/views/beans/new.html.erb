@@ -55,6 +55,13 @@
         <%= f.hidden_field :place_id, id: "PlaceId" %>
       </div>
 
+      <!-- 画像ファイルのアップロード欄 -->
+      <div class="form-control text-left text-base font-body mt-[50px] mb-[40px]">
+        <%= f.label :image, class: "label w-full font-bold" %>
+        <%= f.file_field :image, class: "file-input file-input-bordered file-input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+
       <!-- 味バランスの選択欄（後々レーティング形式に移行する） -->
       <div class="text-left font-body mb-[40px]">
         <p class="label font-bold"><%= t('.taste_balance') %></p>

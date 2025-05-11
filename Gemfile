@@ -50,6 +50,12 @@ gem 'devise-i18n'
 # 環境変数を管理するgem 'dotenv-rails'をインストール
 gem 'dotenv-rails'
 
+# ファイルのアップロード機能を実装できるgem 'CarrierWave'をインストール
+gem 'carrierwave', '~> 2.0'
+
+# 画像の加工機能を実装できる gem 'MiniMagick'をインストール
+gem 'mini_magick'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

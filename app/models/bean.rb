@@ -8,4 +8,7 @@ class Bean < ApplicationRecord
   belongs_to :country
   # Storeモデルに関連付いたカラムは空値を許容したいので、'optional: true'とする
   belongs_to :store, optional: true
+
+  # imageカラムにCarrierWaveの'BeanImageUploader'をマウント
+  mount_uploader :image, BeanImageUploader
 end

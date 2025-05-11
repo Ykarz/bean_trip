@@ -23,13 +23,15 @@ class BeansController < ApplicationController
       @bean.country = country
 
       # storesテーブルにて、フォームから送られてきた'place_id'と一致するレコードがあれば取得し、なければ作成
-      store = Store.find_by(place_id: bean_params[:place_id])
+      if !bean_params[:place_id].blank?
+        store = Store.find_by(place_id: bean_params[:place_id])
 
-      if store.nil?
-        store = Store.create!(get_place_detail_data(bean_params[:place_id]))
+        if store.nil?
+          store = Store.create!(get_place_detail_data(bean_params[:place_id]))
+        end
+
+        @bean.store = store
       end
-
-      @bean.store = store
 
       if @bean.save!
         redirect_to beans_path, notice: t('beans.create.success')
@@ -52,7 +54,24 @@ class BeansController < ApplicationController
 
   # ストロングパラメータ
   def bean_params
-    params.require(:bean).permit(:name, :country, :area, :farm, :roast_level, :blended, :store, :place_id, :bitterness, :sweetness, :acidity, :body, :aroma, :comment)
+    params.require(:bean).permit(
+      :name,
+      :country,
+      :area,
+      :farm,
+      :roast_level,
+      :blended,
+      :store,
+      :place_id,
+      :image,
+      :image_cache,
+      :bitterness,
+      :sweetness,
+      :acidity,
+      :body,
+      :aroma,
+      :comment
+      )
   end
 
   # 'place id'を元にPlaces APIを叩いて、場所の詳細情報を取得するメソッド
