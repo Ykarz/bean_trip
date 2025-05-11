@@ -51,7 +51,7 @@ gem 'devise-i18n'
 gem 'dotenv-rails'
 
 # ファイルのアップロード機能を実装できるgem 'CarrierWave'をインストール
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 3.0'
 
 # 画像の加工機能を実装できる gem 'MiniMagick'をインストール
 gem 'mini_magick'
