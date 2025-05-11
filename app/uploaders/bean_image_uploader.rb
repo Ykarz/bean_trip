@@ -24,7 +24,7 @@ class BeanImageUploader < CarrierWave::Uploader::Base
   end
 
   # Process files as they are uploaded:
-  process scale: [200, 300]
+  process resize_to_fit: [200, 300]
   #
   # def scale(width, height)
   #   # do something
@@ -32,9 +32,15 @@ class BeanImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   # 画像のリサイズを'version'という単位で管理できる
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  # 投稿カードに表示するユーザーアイコンのサイズ
+  version :icon_on_card do
+    process resize_to_fit: [40, 40]
+  end
+
+  # 投稿カードに表示する画像のサイズ
+  version :image_on_card do
+    process resize_to_fit: [300, 200]
+  end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:

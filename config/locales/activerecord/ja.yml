@@ -37,7 +37,7 @@ ja:
         acidity: 酸味
         body: コク
         aroma: 香り
-        image: 投稿画像
+        image: 画像
         comment: コメント
         created_at: 作成日
         updated_at: 更新日
