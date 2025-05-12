@@ -31,7 +31,7 @@ ja:
         area: 生産地区名
         farm: 生産農園名
         roast_level: 焙煎度
-        blended: ブレンド or ストレート
+        is_blended: ブレンド or ストレート
         bitterness: 苦味
         sweetness: 甘味
         acidity: 酸味

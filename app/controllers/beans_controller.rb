@@ -60,7 +60,7 @@ class BeansController < ApplicationController
       :area,
       :farm,
       :roast_level,
-      :blended,
+      :is_blended,
       :store,
       :place_id,
       :image,

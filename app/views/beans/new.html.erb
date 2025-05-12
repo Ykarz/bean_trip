@@ -42,8 +42,8 @@
           <%= f.select :roast_level, options_for_select([["浅煎り", 1], ["中煎り", 2], ["深煎り", 3]]), { include_blank: t('.placeholder.roast_level') }, class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
         </div>
         <div class="form-control w-1/2 text-left text-base font-body">
-          <%= f.label :blended, "ブレンド or ストレート", class: "label w-full font-bold" %>
-          <%= f.select :blended, options_for_select([["ブレンド", true], ["ストレート", false]]), { include_blank: t('.placeholder.blended') }, class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
+          <%= f.label :is_blended, class: "label w-full font-bold" %>
+          <%= f.select :is_blended, options_for_select([["ブレンド", true], ["ストレート", false]]), { include_blank: t('.placeholder.is_blended') }, class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
         </div>
       </div>
 

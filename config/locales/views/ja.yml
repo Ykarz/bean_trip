@@ -37,7 +37,7 @@ ja:
         farm: 農園名を入力（任意）
         roast_level: 焙煎度を選択（任意）
         store: 購入店舗名を入力（任意）
-        blended: どちらかを選択（任意）
+        is_blended: どちらかを選択（任意）
         taste_balance: 数値を選択（任意）
         comment: コメントを入力（必須）
       submit: 新規投稿
