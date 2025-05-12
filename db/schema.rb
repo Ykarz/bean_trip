@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_05_064548) do
     t.string "name", null: false
     t.string "area"
     t.string "farm"
-    t.integer "roast_level"
-    t.boolean "blended"
+    t.integer "roast_level", default: 0, null: false
+    t.boolean "is_blended", default: false, null: false
     t.integer "bitterness"
     t.integer "sweetness"
     t.integer "acidity"
