@@ -62,7 +62,7 @@ store_ids = Store.ids
     area: Faker::Address.city,
     farm: "#{Faker::Name.last_name}農園",
     roast_level: rand(1..3),
-    blended: [true, false].sample,
+    is_blended: [true, false].sample,
     bitterness: rand(1..5),
     sweetness: rand(1..5),
     acidity: rand(1..5),

@@ -4,8 +4,8 @@ class CreateBeans < ActiveRecord::Migration[7.2]
       t.string :name, null: false
       t.string :area
       t.string :farm
-      t.integer :roast_level
-      t.boolean :blended
+      t.integer :roast_level, null: false, default: 0
+      t.boolean :is_blended, null: false, default: false
       t.integer :bitterness
       t.integer :sweetness
       t.integer :acidity
