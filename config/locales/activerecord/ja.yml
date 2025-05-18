@@ -39,5 +39,17 @@ ja:
         aroma: 香り
         image: 画像
         comment: コメント
-        created_at: 作成日
-        updated_at: 更新日
+  attributes:
+    id: ID
+    created_at: 作成日時
+    updated_at: 更新日時
+  enums:
+    bean:
+      roast_level:
+        not_selected: 未選択
+        light_roast: 浅煎り
+        medium_roast: 中煎り
+        dark_roast: 深煎り
+      is_blended:
+        blend: ブレンド
+        straight: ストレート

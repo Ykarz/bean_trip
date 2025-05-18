@@ -10,8 +10,12 @@
       <%= bean.name %>
     </h4>
     <div class="space-y-[5px] text-left text-xs">
-      <p class="truncate">産地：<%= bean.country.name %></p>
-      <p class="truncate">焙煎度：<%= bean.roast_level %></p>
+      <p class="truncate">
+        <%= Country.human_attribute_name(:name) %>：<%= bean.country.name %>
+      </p>
+      <p class="truncate">
+        <%= Bean.human_attribute_name(:roast_level) %>：<%= bean.roast_level_i18n %>
+      </p>
       <p class="line-clamp-2"><%= bean.comment %></p>
     </div>
 
