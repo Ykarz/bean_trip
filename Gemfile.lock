@@ -124,6 +124,8 @@ GEM
       dotenv (= 3.1.8)
       railties (>= 6.1)
     drb (2.2.1)
+    enum_help (0.0.19)
+      activesupport (>= 3.0.0)
     erubi (1.13.1)
     excon (1.2.5)
       logger
@@ -404,6 +406,7 @@ DEPENDENCIES
   devise
   devise-i18n
   dotenv-rails
+  enum_help
   faker
   fog-aws
   jbuilder
