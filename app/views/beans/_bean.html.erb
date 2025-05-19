@@ -33,10 +33,19 @@
       </div>
 
       <!-- 編集・削除アイコン表示エリア -->
-      <div class="flex flex-row items-center space-x-[15px] text-[20px]">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <i class="fa-solid fa-trash"></i>
-      </div>
+      <!-- ログインユーザーのidと投稿コンテンツのユーザーidが等しければ表示 -->
+      <% if user_signed_in? %>
+        <% if current_user.own?(bean) %>
+          <div class="flex flex-row items-center space-x-[15px] text-[20px]">
+            <%= link_to edit_bean_path(bean) do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+            <%= link_to "#" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
