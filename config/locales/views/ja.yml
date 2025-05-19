@@ -43,3 +43,9 @@ ja:
     create:
       success: 投稿が完了しました
       failure: 投稿に失敗しました
+    show:
+      title: 豆詳細
+      taste_balance: 味バランス
+      store_information: 購入店舗の情報
+      to_google_maps: Google Mapsで詳細を確認
+      back_to_bean_index: 一覧へ戻る

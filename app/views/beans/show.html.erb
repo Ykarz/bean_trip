@@ -1,4 +1,141 @@
-<div>
-  <h1 class="font-bold text-4xl">Beans#show</h1>
-  <p>Find me in app/views/beans/show.html.erb</p>
+<div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
+  <!-- 投稿コンテンツをdaisyUIのカードで表示 -->
+  <article class="card bg-base-200 w-full text-black shadow-lg">
+    <!-- 編集・削除アイコン表示エリア -->
+    <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <i class="fa-solid fa-trash"></i>
+    </div>
+
+    <!-- 投稿詳細表示エリア -->
+    <div class="card-body font-body px-[50px]">
+      <!-- 画像表示エリア -->
+      <% if @bean.image.present? %>
+        <div class="flex flex-row justify-center items-center w-full mt-[50px]">
+          <%= image_tag @bean.image_url, width: "500", height: "300", class: "rounded-md" %>
+        </div>
+      <% end %>
+
+      <!-- カードタイトルタイトル表示エリア -->
+      <div class="flex flex-row justify-center items-center w-full">
+        <h3 class="card-title text-3xl font-heading font-bold my-[50px]">
+          <%= @bean.name %>
+        </h3>
+      </div>
+
+      <!-- 生産国表示エリア -->
+      <div class="text-left space-y-[10px] w-full mb-[50px]">
+        <p class="font-bold"><%= Country.human_attribute_name(:name) %></p>
+        <p><%= @bean.country.name %></p>
+      </div>
+
+      <!-- 生産地区表示エリア -->
+      <% if @bean.area.present? %>
+        <div class="text-left space-y-[10px] w-full mb-[50px]">
+          <p class="font-bold"><%= Bean.human_attribute_name(:area) %></p>
+          <p><%= @bean.area %></p>
+        </div>
+      <% end %>
+
+      <!-- 生産農園表示エリア -->
+      <% if @bean.farm.present? %>
+        <div class="text-left space-y-[10px] w-full mb-[50px]">
+          <p class="font-bold"><%= Bean.human_attribute_name(:farm) %></p>
+          <p><%= @bean.farm %></p>
+        </div>
+      <% end %>
+
+      <!-- 焙煎度とブレンドorストレートの表示エリア -->
+      <div class="flex flex-row justify-start items-center space-x-[20px] w-full mb-[50px]">
+        <div class="text-left space-y-[10px] w-1/3">
+          <p class="font-bold"><%= Bean.human_attribute_name(:roast_level) %></p>
+          <p><%= @bean.roast_level_i18n %></p>
+        </div>
+        <div class="text-left space-y-[10px] w-1/3">
+          <p class="font-bold"><%= Bean.human_attribute_name(:is_blended) %></p>
+          <p><%= @bean.is_blended_i18n %></p>
+        </div>
+      </div>
+
+      <!-- 味チャート表示エリア -->
+      <div class="text-left space-y-[10px] w-full mb-[50px]">
+        <p class="font-bold"><%= t('.taste_balance') %></p>
+        <div class="columns-5">
+          <p><b><%= Bean.human_attribute_name(:bitterness) %></b>：<%= @bean.bitterness %></p>
+          <p><b><%= Bean.human_attribute_name(:sweetness) %></b>：<%= @bean.sweetness %></p>
+          <p><b><%= Bean.human_attribute_name(:acidity) %></b>：<%= @bean.acidity %></p>
+          <p><b><%= Bean.human_attribute_name(:body) %></b>：<%= @bean.body %></p>
+          <p><b><%= Bean.human_attribute_name(:aroma) %></b>：<%= @bean.aroma %></p>
+        </div>
+      </div>
+
+      <!-- コメント表示エリア -->
+      <div class="text-left space-y-[10px] w-full mb-[50px]">
+        <p class="font-bold"><%= Bean.human_attribute_name(:comment) %></p>
+        <p><%= @bean.comment %></p>
+      </div>
+
+      <!-- 購入店舗の情報表示エリア -->
+      <% if @bean.store.present? %>
+        <div class="text-left font-bold w-full">
+          <p><%= t('.store_information') %></p>
+        </div>
+        <div class="relative text-sm w-full mb-[30px]">
+          <div class="absolute top-4 left-4 bg-white bg-opacity-80 p-4 w-1/2 z-10">
+            <p class="font-bold mb-1"><%= @bean.store.name %></p>
+            <p class="mb-2"><%= @bean.store.address %></p>
+            <!-- Google Mapsへのリンク -->
+            <div class="w-full">
+              <!-- 'target: :_blank'：リンクをクリックした時に別タブで表示する -->
+              <%= link_to "https://www.google.com/maps/search/?api=1&query=#{@bean.store.name}&query_place_id=#{@bean.store.place_id}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
+                <%= t('.to_google_maps') %>
+              <% end %>
+            </div>
+          </div>
+          <!-- Google Maps表示エリア -->
+          <div id="map" class="h-[400px] w-full rounded-sm"></div>
+        </div>
+      <% end %>
+    </div>
+  </article>
+
+  <!-- 豆一覧へ戻るボタン -->
+  <div class="text-center w-full mt-[50px]">
+    <%= link_to t('.back_to_bean_index'), beans_path, data: { turbo: false }, class: "btn btn-primary w-[200px] h-[50px]" %>
+  </div>
 </div>
+
+<!-- Google Mapsを生成するためのJS -->
+<% if @bean.store.present? %>
+  <script>
+    function initMap() {
+      // 地図要素を取得する
+      const mapElement = document.getElementById('map');
+
+      // 地図のオプションを設定
+      const mapOptions = {
+        center: { lat: <%= @bean.store.latitude %>, lng: <%= @bean.store.longitude %> },
+        zoom: 12,
+        streetViewControl: false, // ストリートビューのボタンを非表示
+        mapTypeControl: false, // 地図・航空写真のボタンを非表示
+        fullscreenControl: false, // フルスクリーンボタンを非表示
+        keyboardShortcuts: false //キーボードショートカットをオフ、キーボードボタンを非表示
+      };
+
+      // 地図を生成
+      const map = new google.maps.Map(mapElement, mapOptions);
+
+      // 地図にマーカーを設置
+      new google.maps.Marker({
+        position: {lat: <%= @bean.store.latitude %>, lng: <%= @bean.store.longitude %>},
+        map: map,
+        title: '<%= j @bean.store.name %>'
+      });
+    }
+  </script>
+<% end %>
+
+<!-- Maps JavaScript APIを使用するためのライブラリを読み込む -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap">
+</script>

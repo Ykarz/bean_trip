@@ -47,6 +47,8 @@ module.exports = {
           'accent-content': '#faf8f5',
           'neutral': '#d4c9bc',  // ニュートラルカラー：無彩色（黒・白・グレー）のこと
           'base-100': '#f5e8d7',  // ベースカラー
+          'base-200': '#e2d1b9',
+          'base-300': '#cdbca3',
           'base-content': '#2a1e16',
           'info': '#5f7d95',
           'info-content': '#faf8f5',
