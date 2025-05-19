@@ -3,7 +3,7 @@ class BeansController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
   def index
-    @beans = Bean.includes(:user)
+    @beans = Bean.includes(:user, :country)
   end
 
   def new
@@ -46,7 +46,9 @@ class BeansController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
-  def show; end
+  def show
+    @bean = Bean.find(params[:id])
+  end
 
   def edit; end
 

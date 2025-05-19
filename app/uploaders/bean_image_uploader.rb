@@ -36,14 +36,15 @@ class BeanImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   # 画像のリサイズを'version'という単位で管理できる
-  # 投稿カードに表示するユーザーアイコンのサイズ
-  version :icon_on_card do
-    process resize_to_fit: [40, 40]
-  end
 
   # 投稿カードに表示する画像のサイズ
   version :image_on_card do
     process resize_to_fit: [300, 200]
+  end
+
+  # 投稿詳細に表示する画像のサイズ
+  version :image_on_show do
+    process resize_to_fit: [500, 300]
   end
 
   # Add an allowlist of extensions which are allowed to be uploaded.

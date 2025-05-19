@@ -5,10 +5,13 @@
   </figure>
 
   <!-- 投稿内容を表示する部分 -->
-  <div class="card-body text-black">
-    <h4 class="card-title truncate text-base font-bold mb-[10px]">
-      <%= bean.name %>
-    </h4>
+  <div class="card-body text-black shadow-md">
+    <!-- 銘柄を詳細ページへのリンクにする -->
+    <%= link_to bean_path(bean), data: { turbo: false } do%>
+      <h4 class="card-title truncate text-base font-bold underline mb-[10px]">
+        <%= bean.name %>
+      </h4>
+    <% end %>
     <div class="space-y-[5px] text-left text-xs">
       <p class="truncate">
         <%= Country.human_attribute_name(:name) %>：<%= bean.country.name %>
