@@ -6,7 +6,7 @@
     <% if user_signed_in? %>
       <% if current_user.own?(@bean) %>
         <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
-          <%= link_to edit_bean_path(@bean) do %>
+          <%= link_to edit_bean_path(@bean), data: { turbo: false } do %>
             <i class="fa-solid fa-pen-to-square"></i>
           <% end %>
           <%= link_to "#" do %>

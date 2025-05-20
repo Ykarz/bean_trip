@@ -37,7 +37,7 @@
       <% if user_signed_in? %>
         <% if current_user.own?(bean) %>
           <div class="flex flex-row items-center space-x-[15px] text-[20px]">
-            <%= link_to edit_bean_path(bean) do %>
+            <%= link_to edit_bean_path(bean), data: { turbo: false } do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
             <%= link_to "#" do %>
