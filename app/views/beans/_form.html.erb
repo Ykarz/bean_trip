@@ -114,8 +114,8 @@
     // 店舗情報入力フィールドに変更が加えられた時
     autocompleteStore.addListener('place_changed', function() {
       const place = autocompleteStore.getPlace();
-      inputStore.value = place.name;
-      inputPlaceId.value = place.place_id
+      inputStore.value = place.name; // 場所名を入力
+      inputPlaceId.value = place.place_id // 場所の'place_id'を入力
     });
   }
 
@@ -133,5 +133,5 @@
 
 <!-- Place Autocompleteを使用するためのライブラリを読み込む -->
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&loading=async&libraries=places&callback=initAutocomplete">
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&loading=async&libraries=places">
 </script>
