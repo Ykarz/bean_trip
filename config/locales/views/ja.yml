@@ -1,6 +1,10 @@
 ja:
   errors:
     error_count: 件のエラーが発生しました。
+  helpers:
+    submit:
+      create: 新規投稿
+      update: 更新する
   diagnoses:
     new:
       title: 豆診断
@@ -26,19 +30,6 @@ ja:
     new:
       title: 豆新規投稿
       description: 〜 お気に入りのコーヒー豆を投稿できます 〜
-      taste_balance: 味バランス
-      label:
-        country: 生産国名
-        store: 購入店舗名（オートコンプリート機能を使用して入力してください）
-      placeholder:
-        name: 銘柄を入力（必須）
-        country: 国名を入力（必須）
-        area: 地区名を入力（任意）
-        farm: 農園名を入力（任意）
-        store: 購入店舗名を入力（任意）
-        taste_balance: 数値を選択（任意）
-        comment: コメントを入力（必須）
-      submit: 新規投稿
       back_to_bean_index: 一覧へ戻る
     create:
       success: 投稿が完了しました
@@ -49,3 +40,22 @@ ja:
       store_information: 購入店舗の情報
       to_google_maps: Google Mapsで詳細を確認
       back_to_bean_index: 一覧へ戻る
+    edit:
+      title: 豆投稿編集
+      back_to_show_bean: 豆詳細へ戻る
+    update:
+      success: 更新が完了しました
+      failure: 更新に失敗しました
+    form:
+      label:
+        country: 生産国名
+        taste_balance: 味バランス
+        store: 購入店舗名（オートコンプリート機能を使用して入力してください）
+      placeholder:
+        name: 銘柄を入力（必須）
+        country: 国名を入力（必須）
+        area: 地区名を入力（任意）
+        farm: 農園名を入力（任意）
+        store: 購入店舗名を入力（任意）
+        taste_balance: 数値を選択（任意）
+        comment: コメントを入力（必須）
