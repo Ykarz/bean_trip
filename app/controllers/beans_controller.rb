@@ -1,6 +1,6 @@
 class BeansController < ApplicationController
   # indexアクションとshowアクション以外は、ログインを必須にする
-  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create edit update]
 
   def index
     @beans = Bean.includes(:user, :country)
@@ -50,7 +50,57 @@ class BeansController < ApplicationController
     @bean = Bean.find(params[:id])
   end
 
-  def edit; end
+  def edit
+    # ログインしているユーザーが投稿した豆のみ編集可能にする
+    @bean = current_user.beans.find(params[:id])
+  end
+
+  def update
+    @bean = current_user.beans.find(params[:id])
+
+    ActiveRecord::Base.transaction do
+      # Countryモデルに対する処理
+      # countriesテーブルから取得、もしくは新規作成したレコードのidと、
+      # 取得したbeansテーブルのレコードに紐づいているcountriesテーブルのレコードのidが等しくなければ、更新処理を行う
+      if bean_params[:country].present?
+        begin
+          country = Country.find_or_create_by!(name: bean_params[:country])
+          @bean.country = country if @bean.country_id != country.id
+        rescue => e
+          @bean.errors.add(:base, e.message)
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      # Storeモデルに対する処理
+      if bean_params[:place_id].present?
+        begin
+          store = Store.find_or_initialize_by(place_id: bean_params[:place_id])
+          # 新規に生成されたレコードならDBへの保存処理を実行
+          if store.new_record?
+            # Places APIを叩いて取得した情報によりカラムを更新
+            store.assign_attributes(get_place_detail_data(bean_params[:place_id]))
+            store.save!
+          end
+          @bean.store = store if @bean.store_id != store.id
+        rescue => e
+          @bean.errors.add(:base, e.message)
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      if @bean.update(bean_params.except(:country, :store, :place_id))
+        redirect_to bean_path(@bean), notice: t('beans.update.success')
+      else
+        flash.now[:alert] = t('beans.update.failure')
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+  rescue ActiveRecord::Rollback
+    flash.now[:alert] = t('beans.update.failure')
+    render :edit, status: :unprocessable_entity
+  end
 
   private
 
