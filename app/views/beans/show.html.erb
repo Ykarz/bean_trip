@@ -2,10 +2,19 @@
   <!-- 投稿コンテンツをdaisyUIのカードで表示 -->
   <article class="card bg-base-200 w-full text-black shadow-lg">
     <!-- 編集・削除アイコン表示エリア -->
-    <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
-      <i class="fa-solid fa-pen-to-square"></i>
-      <i class="fa-solid fa-trash"></i>
-    </div>
+    <!-- ログインユーザーのidと投稿コンテンツのユーザーidが等しければ表示 -->
+    <% if user_signed_in? %>
+      <% if current_user.own?(@bean) %>
+        <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
+          <%= link_to edit_bean_path(@bean), data: { turbo: false } do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+          <%= link_to "#" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
 
     <!-- 投稿詳細表示エリア -->
     <div class="card-body font-body px-[50px]">
