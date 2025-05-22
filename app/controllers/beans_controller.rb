@@ -102,6 +102,12 @@ class BeansController < ApplicationController
     render :edit, status: :unprocessable_entity
   end
 
+  def destroy
+    bean = current_user.beans.find(params[:id])
+    bean.destroy!
+    redirect_to beans_path, notice: t('beans.destroy.success'), status: :see_other
+  end
+
   private
 
   # ストロングパラメータ

@@ -5,6 +5,8 @@ ja:
     submit:
       create: 新規投稿
       update: 更新する
+  defaults:
+    delete_confirm: 削除してもよろしいですか？
   diagnoses:
     new:
       title: 豆診断
@@ -46,6 +48,8 @@ ja:
     update:
       success: 更新が完了しました
       failure: 更新に失敗しました
+    destroy:
+      success: 削除が完了しました
     form:
       label:
         country: 生産国名

@@ -40,7 +40,7 @@
             <%= link_to edit_bean_path(bean), data: { turbo: false } do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
-            <%= link_to "#" do %>
+            <%= link_to bean_path(bean), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
           </div>
