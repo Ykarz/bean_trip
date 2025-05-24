@@ -4,23 +4,10 @@
       <!-- 遷移先のJSイベントを発火させるためにTurboは無効化 -->
       <%= link_to t('.to_new_post'), new_bean_path, data: { turbo: false }, class: "btn btn-warning w-[200px] h-[50px]" %>
     </div>
-    <h2 class="text-center text-4xl font-bold font-heading mt-[50px]"><%= t('.title') %></h2>
+    <h2 class="text-center text-4xl font-bold font-heading my-[50px]"><%= t('.title') %></h2>
 
-    <!-- 検索フォームのブロック -->
-    <div class="flex flex-row justify-center space-x-[20px] mt-[50px] w-full h-[50px]">
-      <input
-        type="text"
-        placeholder="銘柄、産地で探す"
-        class="input input-bordered input-primary form-control bg-white w-[400px] border-[3px] border-primary rounded-[10px]"
-      />
-      <select class="select select-bordered select-primary bg-white w-[200px] border-[3px] border-primary rounded-[10px]">
-        <option disabled selected>焙煎度を選択</option>
-        <option>浅煎り</option>
-        <option>中煎り</option>
-        <option>深煎り</option>
-      </select>
-      <button class="btn btn-accent w-[100px]">検索</button>
-    </div>
+    <!-- 検索フォームのパーシャルを表示 -->
+    <%= render 'search_form', q: @q, url: beans_path %>
 
     <!-- 投稿カードを3列のグリッド形式で表示 -->
     <div class="grid grid-cols-3 gap-x-[80px] gap-y-[50px] my-[100px]">

@@ -1,0 +1,16 @@
+<!-- Ransackを使用した検索フォーム -->
+<%= search_form_for q, url: url do |f| %>
+  <div class="flex flex-row justify-center items-center space-x-[20px] w-full h-[50px]">
+    <!-- 銘柄・コメント・生産国に対する検索フィールド（曖昧検索） -->
+    <div class="form-control">
+      <%= f.search_field :name_or_comment_or_country_name_cont, class: "input input-bordered input-primary form-control bg-white w-[400px] border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.name_comment_country_name') %>
+    </div>
+
+    <!-- 焙煎度のドロップダウンリスト（完全一致検索） -->
+    <div class="form-control">
+      <%= f.select :roast_level_eq, Bean.roast_levels_i18n.invert.map { |key, value| [key, Bean.roast_levels[value]] }, {}, class: "select select-bordered select-primary bg-white w-[200px] border-[3px] border-primary rounded-[10px]" %>
+    </div>
+
+    <%= f.submit t('defaults.search'), class: "btn btn-accent w-[100px]" %>
+  </div>
+<% end %>
