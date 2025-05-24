@@ -15,4 +15,15 @@ class Bean < ApplicationRecord
 
   # imageカラムにCarrierWaveの'BeanImageUploader'をマウント
   mount_uploader :image, BeanImageUploader
+
+  # Ransackが検索可能なカラムを設定
+  def self.ransackable_attributes(auth_object = nil)
+    # カラム名を配列形式で指定
+    ["name", "comment", "roast_level"]
+  end
+
+  # Ransackが検索可能なアソシエーションを設定
+  def self.ransackable_associations(auth_object = nil)
+    ["country", "user"]
+  end
 end

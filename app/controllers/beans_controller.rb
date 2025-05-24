@@ -3,7 +3,17 @@ class BeansController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update]
 
   def index
-    @beans = Bean.includes(:user, :country)
+    # 検索パラメータのroast_levelの値が'未選択'の場合は、それをパラメータから除外し検索をかける
+    if params[:q].present? && (params[:q][:roast_level_eq] == Bean.roast_levels["not_selected"].to_s)
+      params[:q].delete(:roast_level_eq)
+      # Ransackの検索オブジェクトを生成
+      @q = Bean.ransack(params[:q])
+      # 検索オブジェクトから検索結果を重複なしで取得
+      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc)
+    else
+      @q = Bean.ransack(params[:q])
+      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc)
+    end
   end
 
   def new
