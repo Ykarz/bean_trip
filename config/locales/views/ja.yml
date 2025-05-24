@@ -8,6 +8,16 @@ ja:
   defaults:
     delete_confirm: 削除してもよろしいですか？
     search: 検索
+  static:
+    top:
+      title: Bean Trip
+      description: 〜 自分だけの一杯を淹れるために 〜
+      to_login_page: ログインする
+      introduction_feature: 機能紹介
+      diagnoses: 豆診断
+      to_diagnosis_page: 豆診断をする
+      beans: 豆検索・豆投稿
+      to_bean_index: 豆を探す
   diagnoses:
     new:
       title: 豆診断

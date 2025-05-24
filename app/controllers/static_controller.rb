@@ -1,4 +1,3 @@
 class StaticController < ApplicationController
-  def top
-  end
+  def top; end
 end
