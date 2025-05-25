@@ -28,6 +28,7 @@ ja:
         longitude: 経度
       bean:
         name: 銘柄（品名）
+        country: 生産国名
         area: 生産地区名
         farm: 生産農園名
         roast_level: 焙煎度
