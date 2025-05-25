@@ -1,17 +1,25 @@
-<div class="navbar bg-primary w-full h-[80px] px-[40px]">
-    <div class="flex items-center justify-between w-full h-full">
-      <%= link_to "Bean Trip", root_path, class: "flex-none text-base-100 text-4xl font-heading font-bold mr-[40px]" %>
-      <div class="flex-none text-base-100 text-base font-bold font-body space-x-[40px]">
-        <%= link_to "豆診断", new_diagnosis_path %>
-        <%= link_to "豆検索・豆投稿", beans_path %>
-        <%= link_to "店舗検索", "#" %>
-        <% if user_signed_in? %>
-          <%= link_to "マイページ", "#" %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-        <% else %>
-          <%= link_to "新規登録", new_user_registration_path %>
-          <%= link_to "ログイン", new_user_session_path %>
-        <% end %>
-      </div>
-    </div>
+<!-- daisyUIのNavbarコンポーネントを使用 -->
+<div class="navbar bg-primary w-full h-[80px] px-[40px] text-base-100">
+  <!-- 左側：ロゴとタイトル -->
+  <div class="navbar-start">
+    <%= link_to root_path, class: "flex flex-none items-center space-x-[10px]" do %>
+      <i class="fa-solid fa-mug-saucer text-[30px]"></i>
+      <span class="text-4xl font-heading font-bold"><%= t('header.title') %></span>
+    <% end %>
+  </div>
+
+  <!-- 右側：各機能へのリンク -->
+  <div class="navbar-end flex-none space-x-[40px] font-body font-bold">
+    <%= link_to t('header.to_diagnosis_page'), new_diagnosis_path %>
+    <%= link_to t('header.to_bean_index'), beans_path %>
+    <%#= link_to "店舗検索", "#" %>
+    <!-- ログイン時・非ログイン時で表示を分ける -->
+    <% if user_signed_in? %>
+      <%#= link_to "マイページ", "#" %>
+      <%= link_to t('header.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
+    <% else %>
+      <%= link_to t('header.to_new_registration_page'), new_user_registration_path %>
+      <%= link_to t('header.to_new_session_page'), new_user_session_path %>
+    <% end %>
+  </div>
 </div>
