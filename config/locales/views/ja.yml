@@ -8,6 +8,13 @@ ja:
   defaults:
     delete_confirm: 削除してもよろしいですか？
     search: 検索
+  header:
+    title: Bean Trip
+    to_diagnosis_page: 豆診断
+    to_bean_index: 豆検索・豆投稿
+    logout: ログアウト
+    to_new_registration_page: 新規登録
+    to_new_session_page: ログイン
   static:
     top:
       title: Bean Trip
