@@ -21,29 +21,44 @@ class BeansController < ApplicationController
   end
 
   def create
+    # フォームから受け取ったパラメータの内、':country'、':store'、':place_id'は除外
+    # それ以外のパラメータを引数として、Beanモデルのインスタンスをビルド
+    @bean = current_user.beans.build(bean_params.except(:country, :store, :place_id))
+
     # 複数のモデルに対する操作を行うので、transactionメソッドを使用
     ActiveRecord::Base.transaction do
-      # フォームから受け取ったパラメータの内、':country'、':store'、':place_id'は除外
-      # それ以外のパラメータを引数として、Beanモデルのインスタンスをビルド
-      @bean = current_user.beans.build(bean_params.except(:country, :store, :place_id))
-
-      # countriesテーブルにて、国名が一致するレコードがあれば取得し、なければ作成
-      country = Country.find_or_create_by!(name: bean_params[:country])
-      # 取得もしくは生成したCountryモデルのインスタンスを、Beanモデルのインスタンスに関連付ける
-      @bean.country = country
-
-      # storesテーブルにて、フォームから送られてきた'place_id'と一致するレコードがあれば取得し、なければ作成
-      if !bean_params[:place_id].blank?
-        store = Store.find_by(place_id: bean_params[:place_id])
-
-        if store.nil?
-          store = Store.create!(get_place_detail_data(bean_params[:place_id]))
+      # Countryモデルに対する処理
+      if bean_params[:country].present?
+        begin
+          # countriesテーブルにて、国名が一致するレコードがあれば取得し、なければ作成
+          country = Country.find_or_create_by!(name: bean_params[:country])
+          # 取得もしくは生成したCountryモデルのインスタンスを、Beanモデルのインスタンスに関連付ける
+          @bean.country = country
+        rescue => e
+          @bean.errors.add(:base, e.message)
+          raise ActiveRecord::Rollback
         end
-
-        @bean.store = store
       end
 
-      if @bean.save!
+      # Storeモデルに対する処理
+      if bean_params[:place_id].present?
+        begin
+          # storesテーブルにて、フォームから送られてきた'place_id'と一致するレコードがあれば取得し、なければ作成
+          store = Store.find_or_initialize_by(place_id: bean_params[:place_id])
+          # 新規に生成されたレコードならDBへの保存処理を実行
+          if store.new_record?
+            # Places APIを叩いて取得した情報によりカラムを更新
+            store.assign_attributes(get_place_detail_data(bean_params[:place_id]))
+            store.save!
+          end
+          @bean.store = store
+        rescue => e
+          @bean.errors.add(:base, e.message)
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      if @bean.save
         redirect_to beans_path, notice: t('beans.create.success')
       else
         flash.now[:alert] = t('beans.create.failure')
@@ -51,8 +66,8 @@ class BeansController < ApplicationController
       end
     end
 
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = "#{t('beans.create.failure')}\n #{e.message}"
+  rescue ActiveRecord::Rollback
+    flash.now[:alert] = t('beans.create.failure')
     render :new, status: :unprocessable_entity
   end
 
@@ -86,9 +101,7 @@ class BeansController < ApplicationController
       if bean_params[:place_id].present?
         begin
           store = Store.find_or_initialize_by(place_id: bean_params[:place_id])
-          # 新規に生成されたレコードならDBへの保存処理を実行
           if store.new_record?
-            # Places APIを叩いて取得した情報によりカラムを更新
             store.assign_attributes(get_place_detail_data(bean_params[:place_id]))
             store.save!
           end
