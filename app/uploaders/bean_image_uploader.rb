@@ -24,7 +24,7 @@ class BeanImageUploader < CarrierWave::Uploader::Base
   # 画像がアップロードされていない場合のデフォルト画像を設定
   # 'app/assets/images'配下にファイルを配置し、そのファイル名を記述
   def default_url(*args)
-    'coffee_bean_sample'
+    ActionController::Base.helpers.asset_path("coffee_bean_sample.jpg")
   end
 
   # Process files as they are uploaded:
