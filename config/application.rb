@@ -30,5 +30,8 @@ module Myapp
 
     # タイムゾーンを東京に設定
     config.time_zone = 'Tokyo'
+
+    ## 'app/assets'下の任意ディレクトリ下の画像を明示的にプリコンパイルの対象とする
+    config.assets.precompile += %w( **/*.jpg **/*.jpeg **/*.gif **/*.png )
   end
 end
