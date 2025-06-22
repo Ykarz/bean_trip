@@ -114,17 +114,20 @@
   </div>
 </div>
 
-<!-- Google Mapsを生成するためのJS -->
+<!-- Google Mapsを生成し、そこにマーカーを設置するJS -->
 <% if @bean.store.present? %>
   <script>
-    function initMap() {
-      // 地図要素を取得する
-      const mapElement = document.getElementById('map');
+    async function initMap() {
+      // Google Maps JavaScript APIから必要なライブラリをインポート
+      // 'maps'ライブラリ（地図生成）と'AdvancedMarkerElement'（地図上にマーカーを設置）を使用
+      const { Map } = await google.maps.importLibrary("maps");
+      const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
       // 地図のオプションを設定
       const mapOptions = {
         center: { lat: <%= @bean.store.latitude %>, lng: <%= @bean.store.longitude %> },
         zoom: 12,
+        mapId: "<%= ENV['MAP_ID'] %>",  // Maps JavaScript APIのMap IDを指定
         streetViewControl: false, // ストリートビューのボタンを非表示
         mapTypeControl: false, // 地図・航空写真のボタンを非表示
         fullscreenControl: false, // フルスクリーンボタンを非表示
@@ -132,19 +135,29 @@
       };
 
       // 地図を生成
-      const map = new google.maps.Map(mapElement, mapOptions);
+      const map = new Map(document.getElementById("map"), mapOptions);
 
-      // 地図にマーカーを設置
-      new google.maps.Marker({
-        position: {lat: <%= @bean.store.latitude %>, lng: <%= @bean.store.longitude %>},
+      // AdvancedMarkerElementを使用して地図上にマーカーを設置
+      new AdvancedMarkerElement({
         map: map,
+        position: { lat: <%= @bean.store.latitude %>, lng: <%= @bean.store.longitude %> },
         title: '<%= j @bean.store.name %>'
       });
     }
+
+    // ページロード時に地図を初期化
+    document.addEventListener('turbo:load', initMap);
+    // ページのレンダリング後にも地図を初期化
+    document.addEventListener('turbo:render', initMap);
   </script>
 <% end %>
 
-<!-- Maps JavaScript APIを使用するためのライブラリを読み込む -->
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap">
+<!-- Maps JavaScript API中の各種ライブラリを読み込めるようにするためのscriptタグ -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV["GOOGLE_MAPS_API_KEY"] %>", // key: コンソールで作成したAPIキーを指定
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
 </script>
