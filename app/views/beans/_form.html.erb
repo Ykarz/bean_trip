@@ -96,20 +96,24 @@
 <!-- 店舗情報入力フィールドに、Place Autocompleteを使用したオートコンプリート機能を追加するためのJS -->
 <script>
   // フィールドにオートコンプリート機能を付与するための関数
-  function initAutocomplete () {
+  async function initAutocomplete () {
+    // ライブラリの読み込み
+    const { Autocomplete } = await google.maps.importLibrary("places");
+
+    // 店舗情報入力フィールドと'place_id'を取得
     const inputStore = document.getElementById('Store');
     const inputPlaceId = document.getElementById('PlaceId');
 
     if (!inputStore || !inputPlaceId) return;
 
     // オートコンプリートのオプション
-    const options = {
+    const autocompleteOptions = {
       types: ['establishment'],
-      componentRestrictions: { country: 'JP' }
+      componentRestrictions: { country: ['jp'] }
     };
 
-    // オートコンプリート適用
-    const autocompleteStore = new google.maps.places.Autocomplete(inputStore, options);
+    // オートコンプリートのインスタンスを作成
+    const autocompleteStore = new Autocomplete(inputStore, autocompleteOptions);
 
     // 店舗情報入力フィールドに変更が加えられた時
     autocompleteStore.addListener('place_changed', function() {
@@ -119,19 +123,19 @@
     });
   }
 
-  // ページロード時に'initAutocomplete'を発火させる
-  document.addEventListener('turbo:load', function () {
-    initAutocomplete();
-  });
+  // ページが読み込まれた時に'initAutocomplete'を発火させる
+  document.addEventListener('turbo:load', initAutocomplete);
 
-  // 'turbo:render'：ページのレンダリング後にイベントを発火させる
-  // ページのレンダリング後にも'initAutocomplete'を発火させる
-  document.addEventListener('turbo:render', function () {
-    initAutocomplete();
-  });
+  // Turboがレンダリングを完了した時にも'initAutocomplete'を発火させる
+  document.addEventListener('turbo:render', initAutocomplete);
 </script>
 
-<!-- Place Autocompleteを使用するためのライブラリを読み込む -->
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&loading=async&libraries=places">
+<!-- Maps JavaScript APIの各種ライブラリを使用できるようにするためのscriptタグ -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV["GOOGLE_MAPS_API_KEY"] %>",
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
 </script>
