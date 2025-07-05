@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # 豆検索・豆投稿機能へのルーティング
   resources :beans, only: %i[index new create show edit update destroy]
 
+  # 店舗検索機能へのルーティング
+  resources :stores, only: %i[index]
+
   # 'devise'の各種コントローラへのルーティング
   devise_for :users,
             path: "",

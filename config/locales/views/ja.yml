@@ -12,6 +12,7 @@ ja:
     title: Bean Trip
     to_diagnosis_page: 豆診断
     to_bean_index: 豆検索・豆投稿
+    to_store_index: 店舗検索
     logout: ログアウト
     to_new_registration_page: 新規登録
     to_new_session_page: ログイン

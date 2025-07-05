@@ -12,7 +12,7 @@
   <div class="navbar-end flex-none space-x-[40px] font-body font-bold">
     <%= link_to t('header.to_diagnosis_page'), new_diagnosis_path %>
     <%= link_to t('header.to_bean_index'), beans_path %>
-    <%#= link_to "店舗検索", "#" %>
+    <%= link_to t('header.to_store_index'), stores_path %>
     <!-- ログイン時・非ログイン時で表示を分ける -->
     <% if user_signed_in? %>
       <%#= link_to "マイページ", "#" %>

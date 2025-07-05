@@ -1,0 +1,118 @@
+<div class="flex flex-col w-full h-full mx-auto">
+  <div id="map" class="w-full h-full"></div>
+</div>
+
+<script>
+  async function initMap() {
+    // 必要なライブラリをインポート
+    // 'maps'ライブラリ（地図生成）と'marker'ライブラリ（マーカーの設置・マーカーのカスタマイズ等）を使用
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const { PinElement } = await google.maps.importLibrary("marker");
+
+    // 各店舗の配列に格納
+    const stores = [
+      <% @stores.each do |store| %>
+        {
+          name: "<%= j store.name %>",
+          lat: <%= store.latitude %>,
+          lng: <%= store.longitude %>,
+          address: "<%= j store.address %>"
+        },
+      <% end %>
+    ];
+
+    // 端末の現在地を取得し、地図の中心に設定
+    // 現在地が取得できない場合は、テーブルの最初のレコードの店舗の位置を中心とする
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // ブラウザの現在地の緯度と経度を取得
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+
+        // 地図のオプションを設定
+        const mapOptions = {
+          center: { lat: userLat, lng: userLng },
+          zoom: 12,
+          mapId: "<%= ENV['MAP_ID'] %>", // Maps JavaScript APIのMap IDを指定
+          streetViewControl: false,
+          mapTypeControl: true, // 地図・航空写真のボタンを表示
+          fullscreenControl: false,
+          keyboardShortcuts: false,
+        };
+
+        // 地図を生成
+        const map = new Map(document.getElementById("map"), mapOptions);
+
+        // 店舗のマーカーと区別するために、現在地のマーカーをカスタマイズ
+        const userMarkerContent = new PinElement({
+          background: "#f5e8d7",  // 背景色を設定
+          borderColor: "#2a1e16", // 枠線の色を設定
+          glyphColor: "#5a3825",  // マーカーの内丸の色を設定
+        });
+
+        // 現在地マーカー（青色カスタムアイコン）
+        const userMarker = new AdvancedMarkerElement({
+          map: map,
+          position: { lat: userLat, lng: userLng },
+          title: '現在地',
+          content: userMarkerContent.element, // マーカーのカスタム設定を適用
+        });
+
+        // 各店舗のマーカーを設置
+        stores.forEach(function(store) {
+          const marker = new AdvancedMarkerElement({
+            map: map,
+            position: { lat: store.lat, lng: store.lng },
+            title: store.name,
+          });
+        });
+      }, function() {
+        // ブラウザの位置情報取得が失敗した場合は、最初のレコードの店舗の位置を中心に地図を初期化
+        setMapDefault();
+      });
+    } else {
+      setMapDefault();
+    }
+
+    // 端末の位置情報が取得できなかった場合のマップを生成する関数
+    function setMapDefault() {
+      // レコードが存在しない場合は、東京駅の位置を中心にする
+      const center = stores.length > 0 ? { lat: stores[0].lat, lng: stores[0].lng } : { lat: 35.681236, lng: 139.767125 };
+
+      const mapOptions = {
+        center: center,
+        zoom: 12,
+        mapId: "<%= ENV['MAP_ID'] %>",
+        streetViewControl: false,
+        mapTypeControl: true,
+        fullscreenControl: false,
+        keyboardShortcuts: false,
+      };
+
+      const map = new Map(document.getElementById("map"), mapOptions);
+
+      stores.forEach(function(store) {
+        const marker = new AdvancedMarkerElement({
+          map: map,
+          position: { lat: store.lat, lng: store.lng },
+          title: store.name,
+        });
+      });
+    }
+  }
+
+  // ページ読み込み時とレンダリング時に地図を初期化
+  document.addEventListener('turbo:load', initMap);
+  document.addEventListener('turbo:render', initMap);
+</script>
+
+<!-- Maps JavaScript API中の各種ライブラリを読み込めるようにするためのscriptタグ -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV["GOOGLE_MAPS_API_KEY"] %>", // key: コンソールで作成したAPIキーを指定
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
+</script>
