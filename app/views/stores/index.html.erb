@@ -1,5 +1,13 @@
 <div class="flex flex-col w-full h-full mx-auto">
+  <!-- 地図を表示するための要素 -->
   <div id="map" class="w-full h-full"></div>
+
+  <!-- マーカーがクリックされた時に表示される店舗情報の概要のモーダル -->
+  <dialog id="store_modal" class="modal">
+    <!-- モーダルの本体 -->
+    <div class="modal-box w-[500px]">
+    </div>
+  </dialog>
 </div>
 
 <script>
@@ -8,99 +16,86 @@
     // 'maps'ライブラリ（地図生成）と'marker'ライブラリ（マーカーの設置・マーカーのカスタマイズ等）を使用
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    const { PinElement } = await google.maps.importLibrary("marker");
 
-    // 各店舗の配列に格納
-    const stores = [
-      <% @stores.each do |store| %>
-        {
-          name: "<%= j store.name %>",
-          lat: <%= store.latitude %>,
-          lng: <%= store.longitude %>,
-          address: "<%= j store.address %>"
-        },
-      <% end %>
-    ];
-
-    // 端末の現在地を取得し、地図の中心に設定
-    // 現在地が取得できない場合は、テーブルの最初のレコードの店舗の位置を中心とする
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        // ブラウザの現在地の緯度と経度を取得
-        const userLat = position.coords.latitude;
-        const userLng = position.coords.longitude;
-
-        // 地図のオプションを設定
-        const mapOptions = {
-          center: { lat: userLat, lng: userLng },
-          zoom: 12,
-          mapId: "<%= ENV['MAP_ID'] %>", // Maps JavaScript APIのMap IDを指定
-          streetViewControl: false,
-          mapTypeControl: true, // 地図・航空写真のボタンを表示
-          fullscreenControl: false,
-          keyboardShortcuts: false,
-        };
-
-        // 地図を生成
-        const map = new Map(document.getElementById("map"), mapOptions);
-
-        // 店舗のマーカーと区別するために、現在地のマーカーをカスタマイズ
-        const userMarkerContent = new PinElement({
-          background: "#f5e8d7",  // 背景色を設定
-          borderColor: "#2a1e16", // 枠線の色を設定
-          glyphColor: "#5a3825",  // マーカーの内丸の色を設定
-        });
-
-        // 現在地マーカー（青色カスタムアイコン）
-        const userMarker = new AdvancedMarkerElement({
-          map: map,
-          position: { lat: userLat, lng: userLng },
-          title: '現在地',
-          content: userMarkerContent.element, // マーカーのカスタム設定を適用
-        });
-
-        // 各店舗のマーカーを設置
-        stores.forEach(function(store) {
-          const marker = new AdvancedMarkerElement({
-            map: map,
-            position: { lat: store.lat, lng: store.lng },
-            title: store.name,
-          });
-        });
-      }, function() {
-        // ブラウザの位置情報取得が失敗した場合は、最初のレコードの店舗の位置を中心に地図を初期化
-        setMapDefault();
-      });
-    } else {
-      setMapDefault();
-    }
-
-    // 端末の位置情報が取得できなかった場合のマップを生成する関数
-    function setMapDefault() {
-      // レコードが存在しない場合は、東京駅の位置を中心にする
-      const center = stores.length > 0 ? { lat: stores[0].lat, lng: stores[0].lng } : { lat: 35.681236, lng: 139.767125 };
-
-      const mapOptions = {
-        center: center,
-        zoom: 12,
-        mapId: "<%= ENV['MAP_ID'] %>",
+    // 地図生成のためのオプションを設定
+    const mapOptions = {
+        center: { lat: 35.681236, lng: 139.767125 }, // 東京駅を中心に設定
+        zoom: 11,
+        mapId: "<%= ENV["MAP_ID"] %>",
         streetViewControl: false,
         mapTypeControl: true,
         fullscreenControl: false,
         keyboardShortcuts: false,
-      };
+    };
 
-      const map = new Map(document.getElementById("map"), mapOptions);
+    // 地図を生成
+    const map = new Map(document.getElementById("map"), mapOptions);
 
-      stores.forEach(function(store) {
-        const marker = new AdvancedMarkerElement({
+    // @storesに格納されている各店舗の情報を繰り返し処理で取得し、マーカーを設置
+    <% @stores.each do |store| %>
+      (function () {
+        // 各店舗の位置情報を取得
+        const storeLat = <%= store.latitude %>;
+        const storeLng = <%= store.longitude %>;
+
+        // マーカーを生成
+        let marker = new AdvancedMarkerElement({
           map: map,
-          position: { lat: store.lat, lng: store.lng },
-          title: store.name,
+          position: { lat: storeLat, lng: storeLng },
+          title: "<%= j store.name %>",
+          gmpClickable: true,
         });
-      });
-    }
+
+        // マーカーをクリックすると、店舗情報のモーダルを表示
+        marker.addListener("click", function() {
+          // モーダルの内容
+          const modalContent = `
+            <div>
+              <!-- Google Mapsの評価とブックマークボタン -->
+              <div class="flex justify-between items-center">
+                <div class="flex justify-start items-center space-x-2">
+                  <i class="fa-solid fa-star text-[20px]"></i>
+                  <% if store.rating.present? %>
+                    <p class="text-sm text-black"><%= store.rating %></p>
+                  <% else %>
+                    <p class="text-sm text-black">-</p>
+                  <% end %>
+                </div>
+
+                <!-- ブックマークボタン -->
+              </div>
+
+              <!-- 店舗名 -->
+              <div class="flex justify-center items-center space-x-4 my-20">
+                <i class="fa-solid fa-mug-saucer text-[30px]"></i>
+                <p class="text-black font-bold"><%= store.name %></p>
+              </div>
+
+              <!-- 店舗の詳細情報へのリンク -->
+              <div class="text-center">
+                <%= link_to t('.to_show_store'), "#", class: "btn btn-primary w-[200px] h-[50px]" %>
+              </div>
+            </div>
+          `;
+
+          // class="modal-box"の要素にモーダルの内容を追加
+          document.querySelector('.modal-box').innerHTML = modalContent;
+
+          // モーダルを表示
+          const storeModal = document.getElementById('store_modal');
+          storeModal.showModal();
+        });
+      })();
+    <% end %>
   }
+
+  // モーダルが表示されている時、'class="modal-box"'の要素の外側をクリックするとモーダルを閉じる
+  document.addEventListener('click', function(event) {
+    const storeModal = document.getElementById('store_modal');
+    if (event.target === storeModal) {
+      storeModal.close();
+    }
+  });
 
   // ページ読み込み時とレンダリング時に地図を初期化
   document.addEventListener('turbo:load', initMap);

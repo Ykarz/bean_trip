@@ -87,3 +87,6 @@ ja:
     search_form:
       placeholder:
         name_comment_country_name: 銘柄、コメント、生産国で探す
+  stores:
+    index:
+      to_show_store: 詳細
