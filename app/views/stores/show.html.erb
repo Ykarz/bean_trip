@@ -1,0 +1,117 @@
+<div class="flex flex-col items-center w-[800px] mx-auto my-[50px]">
+  <!-- 店舗詳細ページのメインコンテンツ -->
+  <article class="card bg-base-200 w-full text-black shadow-lg">
+    <div class="card-body font-body px-[50px] py-[30px]">
+      <!-- 店舗名 -->
+      <div class="flex flex-row justify-center items-center w-full mb-[30px]">
+        <div class="flex justify-center items-center space-x-4">
+          <i class="fa-solid fa-mug-saucer text-[30px]"></i>
+          <h1 class="text-3xl font-heading font-bold"><%= @store.name %></h1>
+        </div>
+      </div>
+
+      <!-- 評価表示 -->
+      <% if @store.rating.present? %>
+        <div class="flex justify-center items-center space-x-2 mb-[30px]">
+          <i class="fa-solid fa-star text-[20px]"></i>
+          <p class="text-lg"><%= @store.rating %></p>
+        </div>
+      <% end %>
+
+      <!-- タブコンテナ -->
+      <div class="w-full">
+        <!-- タブナビゲーション -->
+        <div role="tablist" class="tabs tabs-bordered">
+          <input type="radio" name="store_tabs" role="tab" class="tab" aria-label="<%= t('.store_information') %>" checked />
+          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+            <!-- 店舗情報タブコンテンツ -->
+            <div class="space-y-6">
+              <!-- 住所 -->
+              <% if @store.address.present? %>
+                <div class="text-left space-y-2">
+                  <p class="font-bold text-lg"><%= t('.address') %></p>
+                  <p><%= @store.address %></p>
+                </div>
+              <% end %>
+
+              <!-- 電話番号 -->
+              <% if @store.phone_number.present? %>
+                <div class="text-left space-y-2">
+                  <p class="font-bold text-lg"><%= t('.phone_number') %></p>
+                  <p><%= @store.phone_number %></p>
+                </div>
+              <% end %>
+
+              <!-- 営業時間 -->
+              <% if @store.opening_hours.present? %>
+                <div class="text-left space-y-2">
+                  <p class="font-bold text-lg"><%= t('.opening_hours') %></p>
+                  <p><%= @store.opening_hours %></p>
+                </div>
+              <% end %>
+
+              <!-- ウェブサイト -->
+              <% if @store.web_site_url.present? %>
+                <div class="text-left space-y-2">
+                  <p class="font-bold text-lg"><%= t('.website') %></p>
+                  <%= link_to @store.web_site_url, @store.web_site_url, target: "_blank", class: "link link-primary" %>
+                </div>
+              <% end %>
+
+              <!-- Google Mapsリンク -->
+              <div class="text-center mt-8">
+                <%= link_to "https://www.google.com/maps/search/?api=1&query=#{@store.name}&query_place_id=#{@store.place_id}", 
+                    target: :_blank, 
+                    class: "btn btn-primary w-[250px]" do %>
+                  <i class="fa-solid fa-map-location-dot mr-2"></i>
+                  <%= t('.view_on_google_maps') %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <input type="radio" name="store_tabs" role="tab" class="tab" aria-label="<%= t('.related_posts') %>" />
+          <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+            <!-- 関連投稿タブコンテンツ -->
+            <% if @beans.present? %>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <% @beans.each do |bean| %>
+                  <div class="card bg-white shadow-sm border">
+                    <div class="card-body p-4">
+                      <% if bean.image.present? %>
+                        <div class="flex justify-center mb-3">
+                          <%= image_tag bean.image_url, class: "w-20 h-20 object-cover rounded" %>
+                        </div>
+                      <% end %>
+                      <h3 class="card-title text-lg font-bold text-center"><%= bean.name %></h3>
+                      <div class="text-sm text-gray-600 space-y-1">
+                        <p><strong><%= t('.country') %>:</strong> <%= bean.country.name %></p>
+                        <% if bean.area.present? %>
+                          <p><strong><%= t('.area') %>:</strong> <%= bean.area %></p>
+                        <% end %>
+                        <p><strong><%= t('.roast_level') %>:</strong> <%= bean.roast_level_i18n %></p>
+                      </div>
+                      <div class="card-actions justify-center mt-3">
+                        <%= link_to t('.view_details'), bean_path(bean), class: "btn btn-outline btn-sm" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center py-12">
+                <i class="fa-solid fa-coffee text-6xl text-gray-300 mb-4"></i>
+                <p class="text-lg text-gray-500"><%= t('.no_related_posts') %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 戻るボタン -->
+  <div class="text-center w-full mt-[30px]">
+    <%= link_to t('.back_to_store_index'), stores_path, class: "btn btn-primary w-[200px] h-[50px]" %>
+  </div>
+</div>
