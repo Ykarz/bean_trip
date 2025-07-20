@@ -4,8 +4,21 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  place_id: "ChIJN1t_tDeuEmsRUsoyG83frY4"
+  name: "Test Coffee Shop One"
+  address: "123 Coffee Street, Tokyo"
+  phone_number: "03-1234-5678"
+  opening_hours: "8:00-18:00"
+  web_site_url: "https://testcoffeeshop.com"
+  rating: 4.2
+  latitude: 35.681236
+  longitude: 139.767125
+
+two:
+  place_id: "ChIJN2t_tDeuEmsRUsoyG83frY5"
+  name: "Test Coffee Shop Two"  
+  address: "456 Bean Avenue, Tokyo"
+  rating: 3.9
+  latitude: 35.682236
+  longitude: 139.768125

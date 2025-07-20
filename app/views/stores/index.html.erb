@@ -73,7 +73,16 @@
 
               <!-- 店舗の詳細情報へのリンク -->
               <div class="text-center">
-                <%= link_to t('.to_show_store'), "#", class: "btn btn-primary w-[200px] h-[50px]" %>
+                <a href="<%= store_path(store) %>" class="btn btn-primary w-[200px] h-[50px]">
+                  <%= t('stores.index.to_show_store') %>
+                </a>
+              </div>
+
+              <!-- モーダル閉じるボタン -->
+              <div class="text-center mt-4">
+                <button class="btn btn-ghost" onclick="document.getElementById('store_modal').close()">
+                  <%= t('stores.index.close_modal') %>
+                </button>
               </div>
             </div>
           `;

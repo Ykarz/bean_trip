@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :beans, only: %i[index new create show edit update destroy]
 
   # 店舗検索機能へのルーティング
-  resources :stores, only: %i[index]
+  resources :stores, only: %i[index show]
 
   # 'devise'の各種コントローラへのルーティング
   devise_for :users,

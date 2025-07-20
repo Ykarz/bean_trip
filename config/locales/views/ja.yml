@@ -90,3 +90,18 @@ ja:
   stores:
     index:
       to_show_store: 詳細
+      close_modal: 閉じる
+    show:
+      store_information: 店舗情報
+      related_posts: 関連投稿
+      address: 住所
+      phone_number: 電話番号
+      opening_hours: 営業時間
+      website: ウェブサイト
+      view_on_google_maps: Google Mapsで確認
+      country: 生産国
+      area: 地区
+      roast_level: 焙煎度
+      view_details: 詳細を見る
+      no_related_posts: この店舗に関連する投稿はありません
+      back_to_store_index: 店舗一覧へ戻る
