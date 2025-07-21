@@ -4,6 +4,6 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find(params[:id])
+    @store = Store.includes(:beans).find(params[:id])
   end
 end
