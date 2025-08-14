@@ -95,5 +95,6 @@ ja:
         store_detail: 店舗詳細
         related_posts: 関連投稿
       opening_hours: 営業時間
-      to_google_maps: 経路を確認する
+      to_google_maps: 現在地からの経路を確認
+      google_maps: マップ
       back_to_store_index: 店舗一覧へ戻る
