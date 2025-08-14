@@ -1,0 +1,154 @@
+<div class="flex flex-col items-center w-[700px] mx-auto my-7">
+  <!-- 店舗の評価・ブックマークボタン、店舗の画像、店舗名を表示 -->
+  <div class="flex flex-col items-center w-[500px] mb-7">
+    <!-- 店舗の評価 -->
+    <div class="flex justify-between items-center w-full mb-2">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-star text-[20px]"></i>
+        <% if @store.rating.present? %>
+          <p class="text-sm text-black"><%= @store.rating %></p>
+        <% else %>
+          <p class="text-sm text-black">-</p>
+        <% end %>
+      </div>
+
+      <!-- ブックマークボタン -->
+      <div>
+        <i class="fa-solid fa-bookmark text-accent text-[20px]"></i>
+      </div>
+    </div>
+
+    <!-- 店舗の画像 -->
+    <% if @photo_reference.present? %>
+      <%= image_tag "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=#{@photo_reference}&key=#{ENV["GOOGLE_MAPS_API_KEY"]}", width: "500", class: "rounded-md shadow-md" %>
+    <% end %>
+    <!-- 店舗名 -->
+    <p class="text-lg font-bold mt-3"><%= @store.name %></p>
+  </div>
+
+  <!-- 店舗の詳細情報と関連投稿をタブで切り替えて表示 -->
+  <div role="tablist" class="tabs tabs-bordered grid grid-cols-2 w-full">
+    <!-- 店舗の詳細情報タブ -->
+    <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.store_detail') %>" checked="checked" />
+    <div role="tabpanel" class="tab-content border-black p-5 rounded-b-md shadow-lg">
+      <!-- 郵便番号表示エリア -->
+      <div class="flex justify-start items-center mb-5">
+        <i class="fa-solid fa-signs-post text-[25px]"></i>
+        <p class="ml-2"><%= @store.post_code %></p>
+      </div>
+
+      <!-- 住所表示エリア -->
+      <div class="flex justify-start items-center mb-5">
+        <i class="fa-solid fa-location-dot text-[25px]"></i>
+        <p class="ml-2"><%= @store.address %></p>
+      </div>
+
+      <!-- 電話番号表示エリア -->
+      <% if @store.phone_number.present? %>
+        <div class="flex justify-start items-center mb-5">
+          <i class="fa-solid fa-phone text-[25px]"></i>
+          <p class="ml-2"><%= @store.phone_number %></p>
+        </div>
+      <% end %>
+
+      <!-- Webサイトへのリンク -->
+      <% if @store.web_site_url.present? %>
+        <div class="flex justify-start items-center mb-5">
+          <i class="fa-solid fa-link text-[25px]"></i>
+          <div class="ml-2 truncate">
+            <%= link_to @store.web_site_url, @store.web_site_url, target: :_blank, class: "link-primary underline" %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- 営業時間表示エリア -->
+      <% if @store.opening_hours.present? %>
+        <div class="flex flex-col items-start mb-5">
+          <!-- アイコンとラベル -->
+          <div class="flex justify-start items-center mb-2">
+            <i class="fa-solid fa-clock text-[25px]"></i>
+            <p class="ml-2"><%= t('.opening_hours') %></p>
+          </div>
+
+          <!-- 営業時間 -->
+          <div><%= simple_format(h(@store.opening_hours)) %></div>
+        </div>
+      <% end %>
+
+      <!-- Google Maps表示エリア -->
+      <div class="flex flex-col items-start mb-5 space-y-2">
+        <!-- アイコンとラベル -->
+        <div class="flex justify-start items-center">
+          <i class="fa-solid fa-map-location text-[25px]"></i>
+          <p class="ml-2"><%= t('.google_maps') %></p>
+        </div>
+
+        <!-- マップ要素 -->
+        <div id="map" class="h-[400px] w-full rounded-md shadow-md"></div>
+      </div>
+
+      <!-- 現在地から店舗までの経路を確認するためのリンク -->
+      <div class="text-center w-full mt-5">
+        <%= link_to t('.to_google_maps'), "https://www.google.com/maps/dir/?api=1&destination=#{@store.latitude},#{@store.longitude}", target: :_blank, class: "btn btn-accent w-[200px] h-[50px]" %>
+        <%#= link_to t('.to_google_maps'), "https://www.google.com/maps/search/?api=1&query=#{@store.name}&query_place_id=#{@store.place_id}", target: :_blank, class: "btn btn-accent w-[200px] h-[50px]" %>
+      </div>
+    </div>
+
+    <!-- 関連投稿タブ -->
+    <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.related_posts') %>" />
+    <div role="tabpanel" class="tab-content border-black p-5 rounded-b-md shadow-lg">
+      関連投稿をカード形式で表示
+    </div>
+  </div>
+
+  <!-- 店舗一覧へ戻るボタン -->
+  <div class="text-center w-full mt-5">
+    <%= link_to t('.back_to_store_index'), stores_path, data: { turbo: false }, class: "btn btn-primary w-[200px] h-[50px]" %>
+  </div>
+</div>
+
+<!-- Google Mapsを生成し、そこにマーカーを設置するJS -->
+<script>
+  async function initMap() {
+    // Google Maps JavaScript APIから必要なライブラリをインポート
+    // 'maps'ライブラリ（地図生成）と'AdvancedMarkerElement'（地図上にマーカーを設置）を使用
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+    // 地図のオプションを設定
+    const mapOptions = {
+      center: { lat: <%= @store.latitude %>, lng: <%= @store.longitude %> },
+      zoom: 12,
+      mapId: "<%= ENV['MAP_ID'] %>",  // Maps JavaScript APIのMap IDを指定
+      streetViewControl: false, // ストリートビューのボタンを非表示
+      mapTypeControl: false, // 地図・航空写真のボタンを非表示
+      fullscreenControl: false, // フルスクリーンボタンを非表示
+      keyboardShortcuts: false //キーボードショートカットをオフ、キーボードボタンを非表示
+    };
+
+    // 地図を生成
+    const map = new Map(document.getElementById("map"), mapOptions);
+
+    // AdvancedMarkerElementを使用して地図上にマーカーを設置
+    new AdvancedMarkerElement({
+      map: map,
+      position: { lat: <%= @store.latitude %>, lng: <%= @store.longitude %> },
+      title: '<%= j @store.name %>'
+    });
+  }
+
+  // ページロード時に地図を初期化
+  document.addEventListener('turbo:load', initMap);
+  // ページのレンダリング後にも地図を初期化
+  document.addEventListener('turbo:render', initMap);
+</script>
+
+<!-- Maps JavaScript API中の各種ライブラリを読み込めるようにするためのscriptタグ -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV["GOOGLE_MAPS_API_KEY"] %>", // key: コンソールで作成したAPIキーを指定
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
+</script>
