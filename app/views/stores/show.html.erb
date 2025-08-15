@@ -30,7 +30,7 @@
   <div role="tablist" class="tabs tabs-bordered grid grid-cols-2 w-full">
     <!-- 店舗の詳細情報タブ -->
     <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.store_detail') %>" checked="checked" />
-    <div role="tabpanel" class="tab-content border-black p-5 rounded-b-md shadow-lg">
+    <div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
       <!-- 郵便番号表示エリア -->
       <div class="flex justify-start items-center mb-5">
         <i class="fa-solid fa-signs-post text-[25px]"></i>
@@ -96,8 +96,11 @@
 
     <!-- 関連投稿タブ -->
     <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.related_posts') %>" />
-    <div role="tabpanel" class="tab-content border-black p-5 rounded-b-md shadow-lg">
-      関連投稿をカード形式で表示
+    <div role="tabpanel" class="tab-content border-primary p-7 rounded-b-md shadow-lg">
+      <!-- 関連投稿を2列のグリッド形式で表示 -->
+      <div class="grid grid-cols-2 gap-5">
+        <%= render partial: 'bean', collection: @beans %>
+      </div>
     </div>
   </div>
 

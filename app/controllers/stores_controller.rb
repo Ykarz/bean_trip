@@ -4,7 +4,8 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.includes(:beans).find(params[:id])
+    @store = Store.find(params[:id])
+    @beans = @store.beans
     @photo_reference = get_place_photo_reference(@store.place_id)
   end
 end

@@ -60,8 +60,9 @@ ja:
     show:
       title: 豆詳細
       taste_balance: 味バランス
-      store_information: 購入店舗の情報
-      to_google_maps: Google Mapsで詳細を確認
+      store_map: マップ
+      to_google_maps: 現在地からの経路を確認
+      to_store_detail: 店舗の詳細情報を確認
       back_to_bean_index: 一覧へ戻る
     edit:
       title: 豆投稿編集
