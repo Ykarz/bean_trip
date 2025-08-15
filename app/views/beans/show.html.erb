@@ -84,25 +84,33 @@
         <p><%= @bean.comment %></p>
       </div>
 
-      <!-- 購入店舗の情報表示エリア -->
+      <!-- 購入店舗のマップ表示エリア -->
       <% if @bean.store.present? %>
-        <div class="text-left font-bold w-full">
-          <p><%= t('.store_information') %></p>
+        <!-- アイコンとラベル -->
+        <div class="flex justify-start items-center">
+          <i class="fa-solid fa-map-location text-[25px]"></i>
+          <p class="font-bold ml-2"><%= t('.store_map') %></p>
         </div>
-        <div class="relative text-sm w-full mb-[30px]">
+        <div class="relative text-sm w-full">
           <div class="absolute top-4 left-4 bg-white bg-opacity-80 p-4 w-1/2 z-10">
             <p class="font-bold mb-1"><%= @bean.store.name %></p>
             <p class="mb-2"><%= @bean.store.address %></p>
             <!-- Google Mapsへのリンク -->
             <div class="w-full">
               <!-- 'target: :_blank'：リンクをクリックした時に別タブで表示する -->
-              <%= link_to "https://www.google.com/maps/search/?api=1&query=#{@bean.store.name}&query_place_id=#{@bean.store.place_id}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
+              <%#= link_to "https://www.google.com/maps/search/?api=1&query=#{@bean.store.name}&query_place_id=#{@bean.store.place_id}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
+              <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@bean.store.latitude},#{@bean.store.longitude}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
                 <%= t('.to_google_maps') %>
               <% end %>
             </div>
           </div>
           <!-- Google Maps表示エリア -->
           <div id="map" class="h-[400px] w-full rounded-sm"></div>
+        </div>
+
+        <!-- 店舗詳細ページへ遷移するボタン-->
+        <div class="text-center w-full mt-5 mb-7">
+          <%= link_to t('.to_store_detail'), store_path(@bean.store), class: "btn btn-accent w-[200px] h-[50px]" %>
         </div>
       <% end %>
     </div>
