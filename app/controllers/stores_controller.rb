@@ -1,6 +1,7 @@
 class StoresController < ApplicationController
   def index
-    @stores = Store.all
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true)
   end
 
   def show
