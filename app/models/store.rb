@@ -7,4 +7,9 @@ class Store < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["name", "address"]
   end
+
+  # Ransackが検索可能なアソシエーションを設定
+  def self.ransackable_associations(auth_object = nil)
+    ["beans"]
+  end
 end
