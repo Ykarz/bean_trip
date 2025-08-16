@@ -1,11 +1,12 @@
 class StoresController < ApplicationController
   def index
-    @stores = Store.all
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true)
   end
 
   def show
     @store = Store.find(params[:id])
-    @beans = @store.beans
+    @beans = @store.beans.includes(:user, :country)
     @photo_reference = get_place_photo_reference(@store.place_id)
   end
 end
