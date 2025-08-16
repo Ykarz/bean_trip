@@ -99,3 +99,6 @@ ja:
       to_google_maps: 現在地からの経路を確認
       google_maps: マップ
       back_to_store_index: 店舗一覧へ戻る
+    search_form:
+      placeholder:
+        name_address: 店舗名、住所で探す

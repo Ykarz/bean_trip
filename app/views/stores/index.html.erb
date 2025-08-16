@@ -1,4 +1,7 @@
 <div class="flex flex-col w-full h-full mx-auto">
+  <!-- 検索フォームを表示 -->
+  <%= render 'search_form', q: @q, url: stores_path %>
+
   <!-- 地図を表示するための要素 -->
   <div id="map" class="w-full h-full"></div>
 

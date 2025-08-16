@@ -1,0 +1,11 @@
+<!-- Ransackを使用した検索フォーム -->
+<%= search_form_for q, url: url do |f| %>
+  <div class="flex flex-row justify-center items-center space-x-[20px] w-full h-[50px] my-5 mx-auto">
+    <!-- 店舗名と住所に対する検索フィールド（曖昧検索） -->
+    <div class="form-control">
+      <%= f.search_field :name_or_address_cont, class: "input input-bordered input-primary form-control bg-white w-[40rem] border-[3px] border-primary rounded-[10px]", placeholder: t('stores.search_form.placeholder.name_address') %>
+    </div>
+
+    <%= f.submit t('defaults.search'), class: "btn btn-accent w-[100px]" %>
+  </div>
+<% end %>
