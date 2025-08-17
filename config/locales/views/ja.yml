@@ -28,6 +28,8 @@ ja:
       to_diagnosis_page: 豆診断をする
       beans: 豆検索・豆投稿
       to_bean_index: 豆を探す
+      stores: 店舗検索
+      to_store_index: お店を探す
   diagnoses:
     new:
       title: 豆診断
