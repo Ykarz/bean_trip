@@ -55,6 +55,20 @@
           <%= link_to t('.to_bean_index'), beans_path, class: "btn btn-primary w-[200px] h-[50px] rounded-lg" %>
         </div>
       </div>
+
+      <!-- 店舗検索 -->
+      <div class="flex flex-col justify-between w-1/4 h-full border-[2px] border-primary rounded-lg shadow-lg p-[20px]">
+        <div class="space-y-[20px]">
+          <p class="text-center text-xl font-bold"><%= t('.stores') %></p>
+          <p class="text-left">
+            Google Mapsを使って、豆を購入できるお店を検索できます。<br><br>
+            マップ上に表示されているピンをクリックすると、お店の詳細情報や関連投稿を確認できます。
+          </p>
+        </div>
+        <div class="text-center">
+          <%= link_to t('.to_store_index'), stores_path, class: "btn btn-accent w-[200px] h-[50px] rounded-lg" %>
+        </div>
+      </div>
     </div>
   </section>
 </div>
