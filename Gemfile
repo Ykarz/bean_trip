@@ -36,7 +36,7 @@ gem "bootsnap", require: false
 
 # gem形式でTailwind CSSをインストール
 gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"  # "3.4.17"の部分がTailwindのバージョン
+gem "tailwindcss-ruby", "4.1.12"  # "3.4.17"の部分がTailwindのバージョン
 
 # 'devise'をインストール
 gem 'devise'
