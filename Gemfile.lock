@@ -129,7 +129,7 @@ GEM
     erubi (1.13.1)
     excon (1.2.5)
       logger
-    faker (3.5.1)
+    faker (3.5.2)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
