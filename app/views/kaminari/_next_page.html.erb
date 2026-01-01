@@ -6,6 +6,19 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
+
+<!-- 次のページへのリンクを表示 -->
 <span class="next">
-  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', remote: remote %>
+  <%= link_to_unless current_page.last?,
+    t('views.pagination.next').html_safe,
+    url,
+    class: class_names(
+      "join-item",
+      "btn",
+      "btn-outline",
+      "btn-accent"
+    ),
+    rel: 'next',
+    remote: remote
+  %>
 </span>

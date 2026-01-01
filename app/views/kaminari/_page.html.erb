@@ -7,6 +7,16 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="page<%= ' current' if page.current? %>">
-  <%= link_to_unless page.current?, page, url, {remote: remote, rel: page.rel} %>
-</span>
+
+<!-- ページ番号へのリンクを表示 -->
+<%= link_to page,
+  url,
+  class: class_names(
+    "join-item",
+    "btn",
+    "btn-outline btn-primary": !page.current?,
+    "btn-active": page.current?
+  ),
+  remote: true,
+  rel: page.rel
+%>
