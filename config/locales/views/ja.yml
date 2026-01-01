@@ -104,3 +104,6 @@ ja:
     search_form:
       placeholder:
         name_address: 店舗名、住所で探す
+  pagination:
+    previous: 前へ
+    next: 次へ

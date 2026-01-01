@@ -10,7 +10,7 @@
 <!-- 前のページへのリンクを表示 -->
 <span class="prev">
   <%= link_to_unless current_page.first?,
-    t('views.pagination.previous').html_safe,
+    t('pagination.previous').html_safe,
     url,
     class: class_names(
       "join-item",
