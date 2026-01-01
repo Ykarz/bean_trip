@@ -65,6 +65,9 @@ gem 'enum_help'
 # 検索機能を実装するためのgemをインストール
 gem 'ransack'
 
+# ページネーションを実装するためのgemをインストール
+gem 'kaminari'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

@@ -9,10 +9,10 @@ class BeansController < ApplicationController
       # Ransackの検索オブジェクトを生成
       @q = Bean.ransack(params[:q])
       # 検索オブジェクトから検索結果を重複なしで取得
-      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc)
+      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc).page(params[:page])
     else
       @q = Bean.ransack(params[:q])
-      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc)
+      @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc).page(params[:page])
     end
   end
 

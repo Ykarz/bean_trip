@@ -13,5 +13,10 @@
     <div class="grid grid-cols-3 gap-x-[80px] gap-y-[50px] my-[100px]">
       <%= render partial: 'bean', collection: @beans %>
     </div>
+
+    <!-- ページネーションのリンクを表示 -->
+    <div class="flex justify-center my-[100px]">
+      <%= paginate @beans %>
+    </div>
   </div>
 </div>

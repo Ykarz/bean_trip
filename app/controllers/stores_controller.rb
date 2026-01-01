@@ -38,3 +38,4 @@ end
     # 取得した'photo_reference'を返す
     photo_reference
   end
+end
