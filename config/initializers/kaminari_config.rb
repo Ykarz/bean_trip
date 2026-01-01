@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Kaminari.configure do |config|
-  config.default_per_page = 10  # 1ページあたりのデフォルト表示件数
+  config.default_per_page = 6  # 1ページあたりの表示コンテンツ数
   # config.max_per_page = nil
-  # config.window = 4
+  config.window = 3  # 現在のページの前後に表示するページ番号の数
   # config.outer_window = 0
   # config.left = 0
   # config.right = 0
