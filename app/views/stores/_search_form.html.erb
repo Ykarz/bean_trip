@@ -6,6 +6,6 @@
       <%= f.search_field :name_or_address_cont, class: "input input-bordered input-primary form-control bg-white w-[40rem] border-[3px] border-primary rounded-[10px]", placeholder: t('stores.search_form.placeholder.name_address') %>
     </div>
 
-    <%= f.submit t('defaults.search'), class: "btn btn-accent w-[100px]" %>
+    <%= f.submit t('defaults.search'), class: "btn btn-accent w-[100px]", data: { action: "click->loading#show" } %>
   </div>
 <% end %>

@@ -28,7 +28,7 @@
       </div>
 
       <div class="actions text-center w-full mb-[50px]">
-        <%= f.submit t('devise.registrations.new.create'), class: "btn btn-primary w-[200px] h-[50px]" %>
+        <%= f.submit t('devise.registrations.new.create'), class: "btn btn-primary w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
       </div>
     <% end %>
   </div>

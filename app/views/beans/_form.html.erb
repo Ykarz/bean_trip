@@ -89,7 +89,7 @@
 
   <!-- 新規投稿ボタン -->
   <div class="actions text-center w-full">
-    <%= f.submit nil, class: "btn btn-warning w-[200px] h-[50px]" %>
+    <%= f.submit nil, class: "btn btn-warning w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
   </div>
 <% end %>
 
