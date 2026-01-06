@@ -16,6 +16,7 @@ ja:
     logout: ログアウト
     to_new_registration_page: 新規登録
     to_new_session_page: ログイン
+    to_profile_page: プロフィール
   footer:
     copyright: ©︎ 2025 Bean Trip
   static:

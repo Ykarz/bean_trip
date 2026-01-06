@@ -15,7 +15,7 @@
     <%= link_to t('header.to_store_index'), stores_path %>
     <!-- ログイン時・非ログイン時で表示を分ける -->
     <% if user_signed_in? %>
-      <%#= link_to "マイページ", "#" %>
+      <%= link_to t('header.to_profile_page'), profile_path %>
       <%= link_to t('header.logout'), destroy_user_session_path, data: { turbo_method: :delete } %>
     <% else %>
       <%= link_to t('header.to_new_registration_page'), new_user_registration_path %>
