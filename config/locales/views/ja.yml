@@ -108,3 +108,12 @@ ja:
   pagination:
     previous: 前へ
     next: 次へ
+  profiles:
+    show:
+      tab_titles:
+        my_posts: 過去の豆投稿
+        bookmarked_beans: ブックマークした豆投稿
+        bookmarked_stores: ブックマークした店舗
+      title: プロフィール
+      to_edit_profile: 編集
+      back_to_top_page: トップページへ戻る

@@ -1,4 +1,51 @@
-<div>
-  <h1 class="font-bold text-4xl">Profiles#show</h1>
-  <p>Find me in app/views/profiles/show.html.erb</p>
+<!-- プロフィール閲覧ページ：Usersテーブルに登録されているユーザー情報（アバター画像、名前、メールアドレス）が表示される -->
+<!-- ページ中の「編集」ボタンをクリックすることで、プロフィール編集ページに遷移することができる -->
+<div class="flex flex-col items-center mx-auto w-[1000px]">
+  <h2 class="text-center text-4xl font-bold font-heading my-[50px]"><%= t('.title') %></h2>
+
+  <!-- ユーザー情報（アバター画像、名前、メールアドレス）が表示される -->
+  <div class="flex justify-between items-center w-[500px] p-5 border border-primary rounded-md shadow-md mb-[100px]">
+		<div class="flex items-center">
+			<!-- アバター画像表示エリア -->
+			<div class="flex items-center mr-5">
+				<%= image_tag current_user.avatar_url, width: "100", height: "100", class: "rounded-full object-contain" %>
+			</div>
+			<!-- 名前、メールアドレス表示エリア -->
+			<div class="flex flex-col space-y-5">
+				<p class="text-2xl font-semibold"><%= current_user.name %></p>
+				<p><%= current_user.email %></p>
+			</div>
+		</div>
+
+		<!-- プロフィール編集ページへのリンクボタン -->
+		<div class="ml-5">
+			<%= link_to t('.to_edit_profile'), edit_profile_path, class: "btn btn-accent w-[100px] h-[50px]" %>
+		</div>
+  </div>
+
+	<!-- 「ユーザーの過去の投稿」、「ブックマークした豆投稿」、「ブックマークした店舗」がそれぞれタブで切り替えて表示 -->
+	<div role="tablist" class="tabs tabs-bordered tabs-lg grid grid-cols-3 w-full">
+		<!-- ユーザーの過去の投稿タブ -->
+		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.my_posts') %>" checked="checked" />
+		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
+			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ユーザーの過去の豆投稿を表示</h2>
+		</div>
+
+		<!-- ブックマークした豆投稿タブ -->
+		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.bookmarked_beans') %>" />
+		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
+			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ブックマークした豆投稿を表示</h2>
+		</div>
+
+		<!-- ブックマークした店舗タブ -->
+		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.bookmarked_stores') %>" />
+		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
+			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ブックマークした店舗を表示</h2>
+		</div>
+	</div>
+
+	<!-- トップページへ戻るボタン -->
+	<div class="text-center mt-5">
+		<%= link_to t('.back_to_top_page'), root_path, data: { turbo: false }, class: "btn btn-primary w-[200px] h-[50px]" %>
+	</div>
 </div>
