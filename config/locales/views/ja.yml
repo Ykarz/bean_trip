@@ -16,6 +16,7 @@ ja:
     logout: ログアウト
     to_new_registration_page: 新規登録
     to_new_session_page: ログイン
+    to_profile_page: プロフィール
   footer:
     copyright: ©︎ 2025 Bean Trip
   static:
@@ -107,3 +108,24 @@ ja:
   pagination:
     previous: 前へ
     next: 次へ
+  profiles:
+    show:
+      tab_titles:
+        my_posts: 過去の豆投稿
+        bookmarked_beans: ブックマークした豆投稿
+        bookmarked_stores: ブックマークした店舗
+      title: プロフィール
+      to_edit_profile: 編集
+      back_to_top_page: トップページへ戻る
+    edit:
+      placeholder:
+        name: 名前を入力（必須）
+        email: メールアドレスを入力（必須）
+      label:
+        avatar: プロフィール画像を選択（任意）
+      title: プロフィール編集
+      update_profile: 更新する
+      back_to_profile_page: プロフィールへ戻る
+    update:
+      success: プロフィールの更新が完了しました
+      failure: プロフィールの更新に失敗しました

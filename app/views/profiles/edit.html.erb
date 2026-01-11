@@ -1,0 +1,44 @@
+<!-- プロフィール編集ページ：ユーザー情報（ユーザー名、メールアドレス、アバター画像）を編集することができる -->
+<div class="flex flex-col items-center mx-auto w-[700px]">
+  <h2 class="text-center text-4xl font-bold font-heading my-[40px]"><%= t('.title') %></h2>
+
+  <!-- アバター画像のプレビュー -->
+  <div class="mx-auto my-[40px]">
+    <%= image_tag @user.avatar_url, width: "100", height: "100", class: "rounded-full object-contain" %>
+  </div>
+
+  <!-- プロフィール編集フォーム -->
+  <%= form_with model: @user, url: profile_path, method: :put, local: true, html: { class: "w-full" } do |f| %>
+    <!-- エラーメッセージのパーシャル -->
+    <%= render "shared/error_messages", object: f.object %>
+
+    <!-- ユーザー名の入力欄 -->
+    <div class="form-control text-left font-body my-[40px]">
+      <%= f.label :name, class: "label w-full font-bold" %>
+      <%= f.text_field :name, autofocus: true, class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-md", placeholder: t('.placeholder.name') %>
+    </div>
+
+    <!-- メールアドレスの入力欄 -->
+    <div class="form-control text-left font-body mb-[40px]">
+      <%= f.label :email, class: "label w-full font-bold" %>
+      <%= f.email_field :email, autofocus: true, class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-md", placeholder: t('.placeholder.email') %>
+    </div>
+
+    <!-- アバター画像のアップロード欄 -->
+    <div class="form-control text-left font-body mb-[40px]">
+      <%= f.label :avatar, t('.label.avatar'), class: "label w-full font-bold" %>
+      <%= f.file_field :avatar, class: "file-input file-input-bordered file-input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-md" %>
+      <%= f.hidden_field :avatar_cache %>
+    </div>
+
+    <!-- 更新ボタン -->
+    <div class="text-center mt-[50px] mb-[80px]">
+      <%= f.submit t('.update_profile'), class: "btn btn-accent w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
+    </div>
+  <% end %>
+
+  <!-- プロフィール閲覧ページへ戻るボタン -->
+  <div class="text-center mb-[100px]">
+    <%= link_to t('.back_to_profile_page'), profile_path, data: { turbo: false }, class: "btn btn-primary w-[200px] h-[50px]" %>
+  </div>
+</div>

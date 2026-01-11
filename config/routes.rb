@@ -25,4 +25,7 @@ Rails.application.routes.draw do
   devise_for :users,
             path: "",
             path_names: { sign_in: 'login', sign_out: 'logout' }
+
+  # ユーザープロフィール機能へのルーティング
+  resource :profile, only: %i[show edit update]
 end

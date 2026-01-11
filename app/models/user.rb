@@ -9,6 +9,9 @@ class User < ApplicationRecord
 
   has_many :beans, dependent: :destroy
 
+  # avatarカラムにCarrierWaveの'AvatarImageUploader'をマウント
+  mount_uploader :avatar, AvatarImageUploader
+
   # メソッドの呼び出し元である、Userモデルのインスタンスの'id'カラムの値と、
   # 引数に渡された'object'に紐付けられているusersテーブルのレコードの'id'カラムの値が等しければ'ture'を返す
   def own?(object)
