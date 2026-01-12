@@ -28,7 +28,14 @@
 		<!-- ユーザーの過去の投稿タブ -->
 		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.my_posts') %>" checked="checked" />
 		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
-			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ユーザーの過去の豆投稿を表示</h2>
+			<% if @beans.exists? %>
+				<!-- 過去の投稿を3列のグリッド形式で表示 -->
+				<div class="grid grid-cols-3 gap-5">
+					<%= render partial: 'beans/bean', collection: @beans %>
+				</div>
+			<% else %>
+				<h2 class="text-center text-2xl font-bold font-heading m-[50px]"><%= t('.no_past_posts') %></h2>
+			<% end %>
 		</div>
 
 		<!-- ブックマークした豆投稿タブ -->
