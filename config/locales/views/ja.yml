@@ -117,6 +117,7 @@ ja:
       title: プロフィール
       to_edit_profile: 編集
       back_to_top_page: トップページへ戻る
+      no_past_posts: 過去の豆投稿はありません
     edit:
       placeholder:
         name: 名前を入力（必須）
