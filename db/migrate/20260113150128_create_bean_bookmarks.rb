@@ -6,5 +6,7 @@ class CreateBeanBookmarks < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
+    # ユーザーが同じ豆投稿を複数回ブックマークできないように、一意制約を追加
+    add_index :bean_bookmarks, [:user_id, :bean_id], unique: true
   end
 end
