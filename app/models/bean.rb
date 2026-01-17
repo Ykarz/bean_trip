@@ -13,6 +13,9 @@ class Bean < ApplicationRecord
   # Storeモデルに関連付いたカラムは空値を許容したいので、'optional: true'とする
   belongs_to :store, optional: true
 
+  # BeanBookmarkモデルとの1対多の関連付け
+  has_many :bean_bookmarks, dependent: :destroy
+
   # imageカラムにCarrierWaveの'BeanImageUploader'をマウント
   mount_uploader :image, BeanImageUploader
 

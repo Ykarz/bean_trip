@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   has_many :beans, dependent: :destroy
 
+  # BeanBookmarkモデルとの多対多の関連付け
+  has_many :bean_bookmarks, dependent: :destroy
+  # BeanBookmarkモデルを介して、ユーザーがブックマークした豆投稿を取得
+  has_many :bookmarked_beans, through: :bean_bookmarks, source: :bean
+
   # avatarカラムにCarrierWaveの'AvatarImageUploader'をマウント
   mount_uploader :avatar, AvatarImageUploader
 
