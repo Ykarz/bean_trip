@@ -22,4 +22,19 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
+
+  # ユーザーが豆投稿をブックマークに追加するメソッド
+  def bookmark_bean(bean)
+    bookmarked_beans << bean
+  end
+
+  # ユーザーが豆投稿のブックマークを解除するメソッド
+  def unbookmark_bean(bean)
+    bookmarked_beans.destroy(bean)
+  end
+
+  # ユーザーが特定の豆投稿をブックマークしているかどうかを確認するメソッド
+  def bean_bookmarked?(bean)
+    bookmarked_beans.include?(bean)
+  end
 end
