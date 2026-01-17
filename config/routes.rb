@@ -16,7 +16,15 @@ Rails.application.routes.draw do
   resources :diagnoses, only: %i[new create show]
 
   # 豆検索・豆投稿機能へのルーティング
-  resources :beans, only: %i[index new create show edit update destroy]
+  resources :beans, only: %i[index new create show edit update destroy] do
+    # ユーザーがブックマークした豆投稿の一覧を取得するルーティング
+    collection do
+      get 'bookmarks'
+    end
+  end
+
+  # 豆投稿のブックマーク機能へのルーティング
+  resources :bean_bookmarks, only: %i[create destroy]
 
   # 店舗検索機能へのルーティング
   resources :stores, only: %i[index show]
