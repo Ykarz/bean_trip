@@ -1,0 +1,2 @@
+class BeanBookmarksController < ApplicationController
+end
