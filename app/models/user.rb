@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   has_many :beans, dependent: :destroy
 
+  # BeanBookmarkモデルとの多対多の関連付け
+  has_many :bean_bookmarks, dependent: :destroy
+  # BeanBookmarkモデルを介して、ユーザーがブックマークした豆投稿を取得
+  has_many :bookmarked_beans, through: :bean_bookmarks, source: :bean
+
   # avatarカラムにCarrierWaveの'AvatarImageUploader'をマウント
   mount_uploader :avatar, AvatarImageUploader
 
@@ -16,5 +21,20 @@ class User < ApplicationRecord
   # 引数に渡された'object'に紐付けられているusersテーブルのレコードの'id'カラムの値が等しければ'ture'を返す
   def own?(object)
     id == object&.user_id
+  end
+
+  # ユーザーが豆投稿をブックマークに追加するメソッド
+  def bookmark_bean(bean)
+    bookmarked_beans << bean
+  end
+
+  # ユーザーが豆投稿のブックマークを解除するメソッド
+  def unbookmark_bean(bean)
+    bookmarked_beans.destroy(bean)
+  end
+
+  # ユーザーが特定の豆投稿をブックマークしているかどうかを確認するメソッド
+  def bean_bookmarked?(bean)
+    bookmarked_beans.include?(bean)
   end
 end

@@ -1,6 +1,6 @@
 class BeansController < ApplicationController
   # indexアクションとshowアクション以外は、ログインを必須にする
-  before_action :authenticate_user!, only: %i[new create edit update]
+  before_action :authenticate_user!, only: %i[new create edit update destroy bookmarks]
 
   def index
     # 検索パラメータのroast_levelの値が'未選択'の場合は、それをパラメータから除外し検索をかける
@@ -129,6 +129,13 @@ class BeansController < ApplicationController
     bean = current_user.beans.find(params[:id])
     bean.destroy!
     redirect_to beans_path, notice: t('beans.destroy.success'), status: :see_other
+  end
+
+  # ユーザーがブックマークした豆投稿の一覧を表示するアクション
+  def bookmarks
+    # ユーザーがブックマークした豆投稿に対するRansackの検索オブジェクトを生成
+    @q = current_user.bookmarked_beans.ransack(params[:q])
+    @beans = @q.result(distinct: true).includes(:user, :country).order(created_at: :desc).page(params[:page])
   end
 
   private

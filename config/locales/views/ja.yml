@@ -53,6 +53,7 @@ ja:
     index:
       title: 豆一覧
       to_new_post: 新規投稿
+      to_bookmarked_beans: ブックマークした豆一覧
     new:
       title: 豆新規投稿
       description: 〜 お気に入りのコーヒー豆を投稿できます 〜
@@ -91,6 +92,16 @@ ja:
     search_form:
       placeholder:
         name_comment_country_name: 銘柄、コメント、生産国で探す
+    bookmarks:
+      title: ブックマークした豆一覧
+      to_new_post: 新規投稿
+      back_to_bean_index: 豆一覧へ戻る
+      no_bookmarked_beans: ブックマークした豆はありません
+  bean_bookmarks:
+    create:
+      success: 豆投稿をブックマークしました
+    destroy:
+      success: 豆投稿のブックマークを外しました
   stores:
     index:
       to_show_store: 詳細

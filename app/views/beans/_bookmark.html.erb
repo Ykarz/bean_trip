@@ -1,0 +1,5 @@
+<!-- ブックマークを追加するアクション（BeanBookmarks#create）へのリンク -->
+<!-- アイコンは未ブックマークの状態 -->
+<%= link_to bean_bookmarks_path(bean_id: bean.id), id: "bookmark-button-for-bean-#{bean.id}", data: { turbo_method: :post } do %>
+  <i class="fa-regular fa-bookmark"></i>
+<% end %>

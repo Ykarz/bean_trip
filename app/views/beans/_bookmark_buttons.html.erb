@@ -1,0 +1,8 @@
+<!-- 投稿のブックマークの状態に応じてボタンを出し分けるパーシャル -->
+<% if current_user.bean_bookmarked?(bean) %>
+  <!-- ブックマーク済みの場合は、ブックマーク解除ボタンを表示 -->
+  <%= render 'unbookmark', bean: bean %>
+<% else %>
+  <!-- ブックマークしていない場合は、ブックマークボタンを表示 -->
+  <%= render 'bookmark', bean: bean %>
+<% end %>

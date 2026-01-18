@@ -1,0 +1,5 @@
+<!-- ブックマークを外すアクション（BeanBookmarks#destroy）へのリンク -->
+<!-- アイコンはブックマークされてる状態 -->
+<%= link_to bean_bookmark_path(current_user.bean_bookmarks.find_by(bean_id: bean.id)), id: "unbookmark-button-for-bean-#{bean.id}", data: { turbo_method: :delete } do %>
+  <i class="fa-solid fa-bookmark"></i>
+<% end %>
