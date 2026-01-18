@@ -37,12 +37,17 @@
       <% if user_signed_in? %>
         <% if current_user.own?(bean) %>
           <div class="flex flex-row items-center space-x-[15px] text-[20px]">
-            <%= link_to edit_bean_path(bean), data: { turbo: false } do %>
+            <%= link_to edit_bean_path(bean), id: "button-edit-#{bean.id}", data: { turbo: false } do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
-            <%= link_to bean_path(bean), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+            <%= link_to bean_path(bean), id: "button-delete-#{bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
+          </div>
+        <!-- ログインユーザーが作成した投稿でない場合は、ブックマークボタンを表示 -->
+        <% else %>
+          <div class="flex flex-row text-accent text-[20px]">
+            <%= render 'bookmark_buttons', bean: bean %>
           </div>
         <% end %>
       <% end %>

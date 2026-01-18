@@ -97,6 +97,11 @@ ja:
       to_new_post: 新規投稿
       back_to_bean_index: 豆一覧へ戻る
       no_bookmarked_beans: ブックマークした豆はありません
+  bean_bookmarks:
+    create:
+      success: 豆投稿をブックマークしました
+    destroy:
+      success: 豆投稿のブックマークを外しました
   stores:
     index:
       to_show_store: 詳細

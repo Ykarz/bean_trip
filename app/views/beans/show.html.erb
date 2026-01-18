@@ -1,17 +1,22 @@
 <div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
   <!-- 投稿コンテンツをdaisyUIのカードで表示 -->
   <article class="card bg-base-200 w-full text-black shadow-lg">
-    <!-- 編集・削除アイコン表示エリア -->
+    <!-- 編集・削除アイコン・ブックマークボタン表示エリア -->
     <!-- ログインユーザーのidと投稿コンテンツのユーザーidが等しければ表示 -->
     <% if user_signed_in? %>
       <% if current_user.own?(@bean) %>
         <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
-          <%= link_to edit_bean_path(@bean), data: { turbo: false } do %>
+          <%= link_to edit_bean_path(@bean), id: "button-edit-#{@bean.id}", data: { turbo: false } do %>
             <i class="fa-solid fa-pen-to-square"></i>
           <% end %>
-          <%= link_to bean_path(@bean), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+          <%= link_to bean_path(@bean), id: "button-delete-#{@bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
+        </div>
+      <% else %>
+        <!-- ログインユーザーが作成した投稿でない場合は、ブックマークボタンを表示 -->
+        <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-accent text-[30px] mt-[30px] px-[30px]">
+          <%= render 'bookmark_buttons', bean: @bean %>
         </div>
       <% end %>
     <% end %>
