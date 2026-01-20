@@ -1,0 +1,2 @@
+class StoreBookmarksController < ApplicationController
+end

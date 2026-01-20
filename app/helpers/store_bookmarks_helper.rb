@@ -1,0 +1,2 @@
+module StoreBookmarksHelper
+end
