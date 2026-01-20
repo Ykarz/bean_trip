@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   # 店舗検索機能へのルーティング
   resources :stores, only: %i[index show]
 
+  # 店舗のブックマーク機能へのルーティング
+  resources :store_bookmarks, only: %i[create destroy]
+
   # 'devise'の各種コントローラへのルーティング
   devise_for :users,
             path: "",
