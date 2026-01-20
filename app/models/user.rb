@@ -42,4 +42,19 @@ class User < ApplicationRecord
   def bean_bookmarked?(bean)
     bookmarked_beans.include?(bean)
   end
+
+  # ユーザーが店舗をブックマークに追加するメソッド
+  def bookmark_store(store)
+    bookmarked_stores << store
+  end
+
+  # ユーザーが店舗のブックマークを解除するメソッド
+  def unbookmark_store(store)
+    bookmarked_stores.destroy(store)
+  end
+
+  # ユーザーが特定の店舗をブックマークしているかどうかを確認するメソッド
+  def store_bookmarked?(store)
+    bookmarked_stores.include?(store)
+  end
 end
