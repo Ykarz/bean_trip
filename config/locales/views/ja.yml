@@ -116,6 +116,11 @@ ja:
     search_form:
       placeholder:
         name_address: 店舗名、住所で探す
+  store_bookmarks:
+    create:
+      success: 店舗をブックマークしました
+    destroy:
+      success: 店舗のブックマークを外しました
   pagination:
     previous: 前へ
     next: 次へ
