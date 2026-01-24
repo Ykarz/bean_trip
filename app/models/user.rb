@@ -14,6 +14,11 @@ class User < ApplicationRecord
   # BeanBookmarkモデルを介して、ユーザーがブックマークした豆投稿を取得
   has_many :bookmarked_beans, through: :bean_bookmarks, source: :bean
 
+  # StoreBookmarkモデルとの多対多の関連付け
+  has_many :store_bookmarks, dependent: :destroy
+  # StoreBookmarkモデルを介して、ユーザーがブックマークした店舗を取得
+  has_many :bookmarked_stores, through: :store_bookmarks, source: :store
+
   # avatarカラムにCarrierWaveの'AvatarImageUploader'をマウント
   mount_uploader :avatar, AvatarImageUploader
 
@@ -36,5 +41,20 @@ class User < ApplicationRecord
   # ユーザーが特定の豆投稿をブックマークしているかどうかを確認するメソッド
   def bean_bookmarked?(bean)
     bookmarked_beans.include?(bean)
+  end
+
+  # ユーザーが店舗をブックマークに追加するメソッド
+  def bookmark_store(store)
+    bookmarked_stores << store
+  end
+
+  # ユーザーが店舗のブックマークを解除するメソッド
+  def unbookmark_store(store)
+    bookmarked_stores.destroy(store)
+  end
+
+  # ユーザーが特定の店舗をブックマークしているかどうかを確認するメソッド
+  def store_bookmarked?(store)
+    bookmarked_stores.include?(store)
   end
 end

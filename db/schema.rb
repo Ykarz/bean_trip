@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_13_150128) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_19_162006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_13_150128) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "store_bookmarks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_bookmarks_on_store_id"
+    t.index ["user_id", "store_id"], name: "index_store_bookmarks_on_user_id_and_store_id", unique: true
+    t.index ["user_id"], name: "index_store_bookmarks_on_user_id"
+  end
+
   create_table "stores", force: :cascade do |t|
     t.string "place_id", null: false
     t.string "name", null: false
@@ -88,4 +98,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_13_150128) do
   add_foreign_key "beans", "countries"
   add_foreign_key "beans", "stores"
   add_foreign_key "beans", "users"
+  add_foreign_key "store_bookmarks", "stores"
+  add_foreign_key "store_bookmarks", "users"
 end

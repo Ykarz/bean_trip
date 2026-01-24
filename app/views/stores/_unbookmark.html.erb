@@ -1,0 +1,5 @@
+<!-- ブックマークを解除するアクション（StoreBookmarks#destroy）へのリンク -->
+<!-- アイコンはブックマーク済みの状態 -->
+<%= link_to store_bookmark_path(current_user.store_bookmarks.find_by(store_id: store.id)), id: "unbookmark-button-for-store-#{store.id}", data: { turbo_method: :delete } do %>
+  <i class="fa-solid fa-bookmark"></i>
+<% end %>

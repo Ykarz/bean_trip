@@ -47,7 +47,7 @@
         <!-- ログインユーザーが作成した投稿でない場合は、ブックマークボタンを表示 -->
         <% else %>
           <div class="flex flex-row text-accent text-[20px]">
-            <%= render 'bookmark_buttons', bean: bean %>
+            <%= render 'beans/bookmark_buttons', bean: bean %>
           </div>
         <% end %>
       <% end %>
