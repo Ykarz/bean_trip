@@ -13,9 +13,11 @@
       </div>
 
       <!-- ブックマークボタン -->
-      <div>
-        <i class="fa-solid fa-bookmark text-accent text-[20px]"></i>
-      </div>
+      <% if user_signed_in? %>
+        <div class="flex flex-row text-accent text-xl">
+          <%= render 'stores/bookmark_buttons', store: @store %>
+        </div>
+      <% end %>
     </div>
 
     <!-- 店舗の画像 -->

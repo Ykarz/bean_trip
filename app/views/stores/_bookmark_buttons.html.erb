@@ -1,0 +1,8 @@
+<!-- 店舗のブックマークの状態に応じてボタンを出し分けるパーシャル -->
+<% if current_user.store_bookmarked?(store) %>
+  <!-- ブックマーク済みの場合は、ブックマーク解除ボタンを表示 -->
+  <%= render 'stores/unbookmark', store: store %>
+<% else %>
+  <!-- ブックマークしていない場合は、ブックマークボタンを表示 -->
+  <%= render 'stores/bookmark', store: store %>
+<% end %>
