@@ -134,6 +134,9 @@ ja:
       to_edit_profile: 編集
       back_to_top_page: トップページへ戻る
       no_past_posts: 過去の豆投稿はありません
+      no_bookmarked_beans: ブックマークした豆投稿はありません
+      no_bookmarked_stores: ブックマークした店舗はありません
+      to_show_store: 詳細
     edit:
       placeholder:
         name: 名前を入力（必須）
