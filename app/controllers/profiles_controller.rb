@@ -1,7 +1,13 @@
 class ProfilesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     # 現在ログインしているユーザーの過去の豆投稿を取得し、@beansに代入
     @beans = current_user.beans.order(created_at: :desc)
+    # ログインユーザーがブックマークした豆投稿を取得し、@bookmarked_beansに代入
+    @bookmarked_beans = current_user.bookmarked_beans.includes(:country).order(created_at: :desc)
+    # ログインユーザーがブックマークした店舗を取得し、@bookmarked_storesに代入
+    @bookmarked_stores = current_user.bookmarked_stores.order(created_at: :desc)
   end
 
   def edit
