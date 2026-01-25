@@ -1,25 +1,25 @@
 <div class="card bg-white w-full h-[450px] border-[2px] border-primary rounded-[10px] font-body">
   <!-- 投稿画像を表示する部分 -->
   <figure>
-    <%= image_tag bean.image_url(:image_on_card) %>
+    <%= image_tag bookmarked_bean.image_url(:image_on_card) %>
   </figure>
 
   <!-- 投稿内容を表示する部分 -->
   <div class="card-body text-black shadow-md">
     <!-- 銘柄を詳細ページへのリンクにする -->
-    <%= link_to bean_path(bean), data: { turbo: false } do%>
+    <%= link_to bean_path(bookmarked_bean), data: { turbo: false } do %>
       <h4 class="card-title truncate text-base font-bold underline mb-[10px]">
-        <%= bean.name %>
+        <%= bookmarked_bean.name %>
       </h4>
     <% end %>
     <div class="space-y-[5px] text-left text-xs">
       <p class="truncate">
-        <%= Country.human_attribute_name(:name) %>：<%= bean.country.name %>
+        <%= Country.human_attribute_name(:name) %>：<%= bookmarked_bean.country.name %>
       </p>
       <p class="truncate">
-        <%= Bean.human_attribute_name(:roast_level) %>：<%= bean.roast_level_i18n %>
+        <%= Bean.human_attribute_name(:roast_level) %>：<%= bookmarked_bean.roast_level_i18n %>
       </p>
-      <p class="line-clamp-2"><%= bean.comment %></p>
+      <p class="line-clamp-2"><%= bookmarked_bean.comment %></p>
     </div>
 
     <div class="flex flex-row justify-between items-center mt-[20px]">
@@ -27,30 +27,30 @@
       <div class="flex flex-row items-center space-x-[10px]">
         <!-- 投稿ユーザーのアバター画像を表示 -->
         <div class="flex items-center justify-center">
-          <%= image_tag bean.user.avatar_url, width: "40", height: "40", class: "rounded-full object-contain" %>
+          <%= image_tag bookmarked_bean.user.avatar_url, width: "40", height: "40", class: "rounded-full object-contain" %>
         </div>
         <div class="flex flex-col justify-center text-xs space-y-1">
-          <p class="truncate"><%= bean.user.name %></p>
-          <p class="truncate"><%= bean.created_at.strftime("%Y/%m/%d") %></p>
+          <p class="truncate"><%= bookmarked_bean.user.name %></p>
+          <p class="truncate"><%= bookmarked_bean.created_at.strftime("%Y/%m/%d") %></p>
         </div>
       </div>
 
       <!-- 編集・削除アイコン表示エリア -->
       <!-- ログインユーザーのidと投稿コンテンツのユーザーidが等しければ表示 -->
       <% if user_signed_in? %>
-        <% if current_user.own?(bean) %>
+        <% if current_user.own?(bookmarked_bean) %>
           <div class="flex flex-row items-center space-x-[15px] text-[20px]">
-            <%= link_to edit_bean_path(bean), id: "button-edit-#{bean.id}", data: { turbo: false } do %>
+            <%= link_to edit_bean_path(bookmarked_bean), id: "button-edit-#{bookmarked_bean.id}", data: { turbo: false } do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
-            <%= link_to bean_path(bean), id: "button-delete-#{bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+            <%= link_to bean_path(bookmarked_bean), id: "button-delete-#{bookmarked_bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
           </div>
         <!-- ログインユーザーが作成した投稿でない場合は、ブックマークボタンを表示 -->
         <% else %>
           <div class="flex flex-row text-accent text-[20px]">
-            <%= render 'beans/bookmark_buttons', bean: bean %>
+            <%= render 'beans/bookmark_buttons', bean: bookmarked_bean %>
           </div>
         <% end %>
       <% end %>

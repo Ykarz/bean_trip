@@ -41,13 +41,27 @@
 		<!-- ブックマークした豆投稿タブ -->
 		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.bookmarked_beans') %>" />
 		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
-			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ブックマークした豆投稿を表示</h2>
+			<% if @bookmarked_beans.exists? %>
+				<!-- ブックマークした豆投稿を3列のグリッド形式で表示 -->
+				<div class="grid grid-cols-3 gap-5">
+					<%= render partial: 'profiles/bookmarked_bean', collection: @bookmarked_beans %>
+				</div>
+			<% else %>
+				<h2 class="text-center text-2xl font-bold font-heading m-[50px]"><%= t('.no_bookmarked_beans') %></h2>
+			<% end %>
 		</div>
 
 		<!-- ブックマークした店舗タブ -->
 		<input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="<%= t('.tab_titles.bookmarked_stores') %>" />
 		<div role="tabpanel" class="tab-content border-primary p-5 rounded-b-md shadow-lg">
-			<h2 class="text-center text-2xl font-bold font-heading m-[50px]">ブックマークした店舗を表示</h2>
+			<% if @bookmarked_stores.exists? %>
+				<!-- ブックマークした店舗を2列のグリッド形式で表示 -->
+				<div class="grid grid-cols-2 gap-10">
+					<%= render partial: 'profiles/bookmarked_store', collection: @bookmarked_stores %>
+				</div>
+			<% else %>
+				<h2 class="text-center text-2xl font-bold font-heading m-[50px]"><%= t('.no_bookmarked_stores') %></h2>
+			<% end %>
 		</div>
 	</div>
 
