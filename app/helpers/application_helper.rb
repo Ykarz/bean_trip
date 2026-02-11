@@ -21,4 +21,32 @@ module ApplicationHelper
       'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
     end
   end
+
+  # SEO対策用のmetaタグを生成するためのメソッド
+  def default_meta_tags
+    {
+      site: 'Bean Trip',
+      title: 'あなたに合うコーヒー豆と出会う',
+      reverse: true,
+      charset: 'utf-8',
+      description: 'Bean Tripは、コーヒー豆の診断や検索、投稿ができるサービスです。',
+      keywords: 'コーヒー, コーヒー豆, 焙煎所, カフェ, 診断, 検索, 投稿',
+      canonical: request.original_url,
+      separator: '|',
+      og: {
+        site_name: :site,
+        title: :title,
+        description: :description,
+        type: 'website',
+        url: request.original_url,
+        image: image_url('ogp.png'),
+        local: 'ja_JP'
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: '@obvyamdrss',
+        image: image_url('ogp.png')
+      }
+    }
+  end
 end
