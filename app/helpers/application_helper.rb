@@ -31,14 +31,14 @@ module ApplicationHelper
       charset: 'utf-8',
       description: 'Bean Tripは、コーヒー豆の診断や検索、投稿ができるコーヒー豆選びに特化したサービスです。',
       keywords: 'コーヒー, コーヒー豆, 焙煎所, カフェ, 診断, 検索, 投稿',
-      canonical: request.original_url,
+      canonical: 'https://bean-trip.onrender.com',
       separator: '|',
       og: {
         site_name: :site,
         title: :title,
         description: :description,
         type: 'website',
-        url: request.original_url,
+        url: 'https://bean-trip.onrender.com',
         image: image_url('ogp.png'),
         local: 'ja_JP'
       },
