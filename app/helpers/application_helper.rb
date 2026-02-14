@@ -29,7 +29,7 @@ module ApplicationHelper
       title: 'あなたに合うコーヒー豆と出会う',
       reverse: true,
       charset: 'utf-8',
-      description: 'Bean Tripは、コーヒー豆の診断や検索、投稿ができるサービスです。',
+      description: 'Bean Tripは、コーヒー豆の診断や検索、投稿ができるコーヒー豆選びに特化したサービスです。',
       keywords: 'コーヒー, コーヒー豆, 焙煎所, カフェ, 診断, 検索, 投稿',
       canonical: request.original_url,
       separator: '|',
@@ -44,7 +44,7 @@ module ApplicationHelper
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@obvyamdrss',
+        site: '@basket_blhlc',
         image: image_url('ogp.png')
       }
     }
