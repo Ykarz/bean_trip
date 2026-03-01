@@ -49,4 +49,9 @@ module ApplicationHelper
       }
     }
   end
+
+  # 本番環境のURLを返すメソッド
+  def production_url
+    'https://bean-trip.onrender.com'
+  end
 end
