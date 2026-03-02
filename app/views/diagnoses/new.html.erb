@@ -52,5 +52,10 @@
         <%= f.submit t('.submit'), class: "btn btn-warning w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
       </div>
     <% end %>
+
+    <!-- トップページへのリンク -->
+    <div class="text-center mt-[50px] space-y-[50px]">
+      <%= link_to t('.to_top_page'), root_path, class: "btn btn-primary w-[200px] h-[50px]" %>
+    </div>
   </div>
 </div>
