@@ -10,4 +10,11 @@
       「絶妙な味のバランス」が最大の特徴であるため、色んな人にオススメできるコーヒー豆です。
     </p>
   </div>
+
+  <!-- Xで診断結果を共有するためのリンク -->
+  <div class="text-center mt-[30px]">
+    <%= link_to "https://twitter.com/share?url=#{production_url}&text=私のコーヒー豆診断の結果は「ブルーマウンテン」でした！%0a%0a&hashtags=コーヒー豆診断,ブルーマウンテン", target: "_blank", title: "Xでシェア" do %>
+      <i class="fa-brands fa-square-x-twitter text-[50px]"></i>
+    <% end %>
+  </div>
 </div>

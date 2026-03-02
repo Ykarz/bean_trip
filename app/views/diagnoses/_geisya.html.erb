@@ -9,4 +9,11 @@
     <p>コーヒーでありながら、軽やかで紅茶のような風味を楽しみたい人にピッタリです。</p>
     <p>ゲイシャの特徴を最大限に活かすために、浅煎り、かつブラックで飲むのがオススメです。</p>
   </div>
+
+  <!-- Xで診断結果を共有するためのリンク -->
+  <div class="text-center mt-[30px]">
+    <%= link_to "https://twitter.com/share?url=#{production_url}&text=私のコーヒー豆診断の結果は「ゲイシャ」でした！%0a%0a&hashtags=コーヒー豆診断,ゲイシャ", target: "_blank", title: "Xでシェア" do %>
+      <i class="fa-brands fa-square-x-twitter text-[50px]"></i>
+    <% end %>
+  </div>
 </div>
