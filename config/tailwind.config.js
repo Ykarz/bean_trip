@@ -29,8 +29,8 @@ module.exports = {
       },
       // フォントファミリーを設定、font-{フォントファミリーのクラス名}で指定
       fontFamily: {
-        'body': ['Roboto'],  // 本文用のフォント
-        'heading': ['Montserrat'],  // 見出し用のフォント
+        'body': ['Roboto', 'sans-serif'],  // 本文用のフォント
+        'heading': ['Montserrat', 'sans-serif'],  // 見出し用のフォント
       },
     },
   },
