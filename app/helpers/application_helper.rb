@@ -54,4 +54,10 @@ module ApplicationHelper
   def production_url
     'https://bean-trip.onrender.com'
   end
+
+  # 各ページのタイトルを動的に生成するためのメソッド
+  def page_title(title = '')
+    base_title = 'Bean Trip'
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
 end
