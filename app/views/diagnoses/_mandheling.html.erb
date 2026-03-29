@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center w-full text-center">
-  <h2 class="w-full text-3xl font-heading font-bold">マンデリン</h2>
-  <h4 class="w-full text-xl font-body mt-[30px]">産地：<b>インドネシア・スマトラ島</b> 🇮🇩</h4>
-  <div class="w-full mt-[30px] space-y-[10px] text-base font-body">
+  <h2 class="w-full text-2xl sm:text-3xl md:text-4xl font-heading font-bold">マンデリン</h2>
+  <h4 class="w-full text-base sm:text-lg font-body mt-4 sm:mt-6">産地：<b>インドネシア・スマトラ島</b> 🇮🇩</h4>
+  <div class="w-full mt-4 sm:mt-6 space-y-3 sm:space-y-4 text-sm sm:text-base font-body">
     <p>
       シナモンやハーブのような香り、重厚な苦味とコクが特徴のコーヒー豆です。
     </p>
@@ -12,9 +12,9 @@
   </div>
 
   <!-- Xで診断結果を共有するためのリンク -->
-  <div class="text-center mt-[30px]">
-    <%= link_to "https://twitter.com/share?url=#{production_url}&text=私のコーヒー豆診断の結果は「マンデリン」でした！%0a%0a&hashtags=コーヒー豆診断,マンデリン", target: "_blank", title: "Xでシェア" do %>
-      <i class="fa-brands fa-square-x-twitter text-[50px]"></i>
+  <div class="text-center mt-4 sm:mt-6">
+    <%= link_to "https://twitter.com/share?url=#{production_url}&text=私のコーヒー豆診断の結果は「マンデリン」でした！%0a%0a&hashtags=コーヒー豆診断,マンデリン", target: "_blank", title: "Xでシェア", class: "inline-block p-3 rounded-lg" do %>
+      <i class="fa-brands fa-square-x-twitter text-5xl sm:text-6xl"></i>
     <% end %>
   </div>
 </div>
