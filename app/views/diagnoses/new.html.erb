@@ -1,61 +1,63 @@
-<div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
+<!-- タイトルを動的に設定 -->
+<% content_for(:title, t('.title')) %>
+<div class="w-full max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 my-8 sm:my-12 md:my-20">
   <div class="w-full text-black">
-    <div class="text-center font-bold space-y-[10px]">
-      <h2 class="text-4xl font-heading"><%= t('.title') %></h2>
-      <p class="text-base font-body"><%= t('.description') %></p>
+    <div class="text-center font-bold space-y-4">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading"><%= t('.title') %></h2>
+      <p class="text-sm sm:text-base md:text-lg font-body"><%= t('.description') %></p>
     </div>
 
     <%= form_with url: diagnoses_path, scope: :diagnosis, local: true do |f| %>
-      <div class="w-full mt-[50px] space-y-[30px]">
-        <p class="text-center font-bold"><%= t('.q1') %></p>
-        <div class="flex flex-row justify-center space-x-[80px]">
-          <label>
+      <div class="w-full mt-12 space-y-6">
+        <p class="text-center font-bold text-base sm:text-lg"><%= t('.q1') %></p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-20">
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q1, "1", class: "hidden peer"%>
-            <div class="btn btn-neutral peer-checked:btn-primary w-[200px] h-[50px]"><%= t('.answer_yes') %></div>
+            <div class="btn btn-neutral peer-checked:btn-primary w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_yes') %></div>
           </label>
-          <label>
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q1, "0", class: "hidden peer" %>
-            <div class="btn btn-neutral peer-checked:btn-accent w-[200px] h-[50px]"><%= t('.answer_no') %></div>
+            <div class="btn btn-neutral peer-checked:btn-accent w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_no') %></div>
           </label>
         </div>
       </div>
 
-      <div class="w-full mt-[50px] space-y-[30px]">
-        <p class="text-center font-bold"><%= t('.q2') %></p>
-        <div class="flex flex-row justify-center space-x-[80px]">
-          <label>
+      <div class="w-full mt-8 space-y-6">
+        <p class="text-center font-bold text-base sm:text-lg"><%= t('.q2') %></p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-20">
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q2, "1", class: "hidden peer"%>
-            <div class="btn btn-neutral peer-checked:btn-primary w-[200px] h-[50px]"><%= t('.answer_yes') %></div>
+            <div class="btn btn-neutral peer-checked:btn-primary w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_yes') %></div>
           </label>
-          <label>
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q2, "0", class: "hidden peer" %>
-            <div class="btn btn-neutral peer-checked:btn-accent w-[200px] h-[50px]"><%= t('.answer_no') %></div>
+            <div class="btn btn-neutral peer-checked:btn-accent w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_no') %></div>
           </label>
         </div>
       </div>
 
-      <div class="w-full mt-[50px] space-y-[30px]">
-        <p class="text-center font-bold"><%= t('.q3') %></p>
-        <div class="flex flex-row justify-center space-x-[80px]">
-          <label>
+      <div class="w-full mt-8 space-y-6">
+        <p class="text-center font-bold text-base sm:text-lg"><%= t('.q3') %></p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-20">
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q3, "1", class: "hidden peer"%>
-            <div class="btn btn-neutral peer-checked:btn-primary w-[200px] h-[50px]"><%= t('.answer_yes') %></div>
+            <div class="btn btn-neutral peer-checked:btn-primary w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_yes') %></div>
           </label>
-          <label>
+          <label class="w-full sm:w-auto">
             <%= f.radio_button :q3, "0", class: "hidden peer" %>
-            <div class="btn btn-neutral peer-checked:btn-accent w-[200px] h-[50px]"><%= t('.answer_no') %></div>
+            <div class="btn btn-neutral peer-checked:btn-accent w-full sm:w-[200px] h-[50px] text-center"><%= t('.answer_no') %></div>
           </label>
         </div>
       </div>
 
-      <div class="actions text-center w-full mt-[50px]">
-        <%= f.submit t('.submit'), class: "btn btn-warning w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
+      <div class="actions text-center w-full mt-12">
+        <%= f.submit t('.submit'), class: "btn btn-warning w-full sm:w-[200px] h-[50px] mx-auto", data: { action: "click->loading#show" } %>
       </div>
     <% end %>
 
     <!-- トップページへのリンク -->
-    <div class="text-center mt-[50px] space-y-[50px]">
-      <%= link_to t('.to_top_page'), root_path, class: "btn btn-primary w-[200px] h-[50px]" %>
+    <div class="text-center mt-8">
+      <%= link_to t('.to_top_page'), root_path, class: "btn btn-primary w-full sm:w-[200px] h-[50px] mx-auto" %>
     </div>
   </div>
 </div>
