@@ -1,51 +1,52 @@
-<div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
+<% content_for(:title, @bean.name) %>
+<div class="flex flex-col items-center w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8">
   <!-- 投稿コンテンツをdaisyUIのカードで表示 -->
   <article class="card bg-base-200 w-full text-black shadow-lg">
     <!-- 編集・削除アイコン・ブックマークボタン表示エリア -->
     <!-- ログインユーザーのidと投稿コンテンツのユーザーidが等しければ表示 -->
     <% if user_signed_in? %>
       <% if current_user.own?(@bean) %>
-        <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-[30px] mt-[30px] px-[30px]">
-          <%= link_to edit_bean_path(@bean), id: "button-edit-#{@bean.id}", data: { turbo: false } do %>
+        <div class="flex justify-end items-center space-x-6 w-full text-xl md:text-2xl mt-6 md:mt-8 px-4 md:px-8">
+          <%= link_to edit_bean_path(@bean), id: "button-edit-#{@bean.id}", data: { turbo: false }, class: "p-2" do %>
             <i class="fa-solid fa-pen-to-square"></i>
           <% end %>
-          <%= link_to bean_path(@bean), id: "button-delete-#{@bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+          <%= link_to bean_path(@bean), id: "button-delete-#{@bean.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') }, class: "p-2" do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
         </div>
       <% else %>
         <!-- ログインユーザーが作成した投稿でない場合は、ブックマークボタンを表示 -->
-        <div class="flex flex-row justify-end items-center space-x-[30px] w-full text-accent text-[30px] mt-[30px] px-[30px]">
+        <div class="flex justify-end items-center space-x-6 w-full text-accent text-xl md:text-2xl mt-6 md:mt-8 px-4 md:px-8">
           <%= render 'bookmark_buttons', bean: @bean %>
         </div>
       <% end %>
     <% end %>
 
     <!-- 投稿詳細表示エリア -->
-    <div class="card-body font-body px-[50px]">
+    <div class="card-body font-body p-4 md:p-12">
       <!-- 画像表示エリア -->
       <% if @bean.image.present? %>
-        <div class="flex flex-row justify-center items-center w-full mt-[50px]">
-          <%= image_tag @bean.image_url, width: "500", height: "300", class: "rounded-md" %>
+        <div class="flex justify-center items-center w-full mt-6 md:mt-12">
+          <%= image_tag @bean.image_url, class: "w-full max-w-xl h-48 md:h-72 object-cover rounded-md" %>
         </div>
       <% end %>
 
-      <!-- カードタイトルタイトル表示エリア -->
-      <div class="flex flex-row justify-center items-center w-full">
-        <h3 class="card-title text-3xl font-heading font-bold my-[50px]">
+      <!-- カードタイトル表示エリア -->
+      <div class="flex justify-center items-center w-full">
+        <h3 class="card-title text-2xl md:text-3xl font-heading font-bold my-6 md:my-12">
           <%= @bean.name %>
         </h3>
       </div>
 
       <!-- 生産国表示エリア -->
-      <div class="text-left space-y-[10px] w-full mb-[50px]">
+      <div class="text-left space-y-2 w-full mb-6 md:mb-12">
         <p class="font-bold"><%= Country.human_attribute_name(:name) %></p>
         <p><%= @bean.country.name %></p>
       </div>
 
       <!-- 生産地区表示エリア -->
       <% if @bean.area.present? %>
-        <div class="text-left space-y-[10px] w-full mb-[50px]">
+        <div class="text-left space-y-2 w-full mb-6 md:mb-12">
           <p class="font-bold"><%= Bean.human_attribute_name(:area) %></p>
           <p><%= @bean.area %></p>
         </div>
@@ -53,28 +54,28 @@
 
       <!-- 生産農園表示エリア -->
       <% if @bean.farm.present? %>
-        <div class="text-left space-y-[10px] w-full mb-[50px]">
+        <div class="text-left space-y-2 w-full mb-6 md:mb-12">
           <p class="font-bold"><%= Bean.human_attribute_name(:farm) %></p>
           <p><%= @bean.farm %></p>
         </div>
       <% end %>
 
       <!-- 焙煎度とブレンドorストレートの表示エリア -->
-      <div class="flex flex-row justify-start items-center space-x-[20px] w-full mb-[50px]">
-        <div class="text-left space-y-[10px] w-1/3">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-6 md:mb-12">
+        <div class="text-left space-y-2">
           <p class="font-bold"><%= Bean.human_attribute_name(:roast_level) %></p>
           <p><%= @bean.roast_level_i18n %></p>
         </div>
-        <div class="text-left space-y-[10px] w-1/3">
+        <div class="text-left space-y-2">
           <p class="font-bold"><%= Bean.human_attribute_name(:is_blended) %></p>
           <p><%= @bean.is_blended_i18n %></p>
         </div>
       </div>
 
       <!-- 味チャート表示エリア -->
-      <div class="text-left space-y-[10px] w-full mb-[50px]">
-        <p class="font-bold"><%= t('.taste_balance') %></p>
-        <div class="columns-5">
+      <div class="text-left w-full mb-6 md:mb-12">
+        <p class="font-bold mb-2"><%= t('.taste_balance') %></p>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
           <p><b><%= Bean.human_attribute_name(:bitterness) %></b>：<%= @bean.bitterness %></p>
           <p><b><%= Bean.human_attribute_name(:sweetness) %></b>：<%= @bean.sweetness %></p>
           <p><b><%= Bean.human_attribute_name(:acidity) %></b>：<%= @bean.acidity %></p>
@@ -84,7 +85,7 @@
       </div>
 
       <!-- コメント表示エリア -->
-      <div class="text-left space-y-[10px] w-full mb-[50px]">
+      <div class="text-left space-y-2 w-full mb-6 md:mb-12">
         <p class="font-bold"><%= Bean.human_attribute_name(:comment) %></p>
         <p><%= @bean.comment %></p>
       </div>
@@ -93,37 +94,35 @@
       <% if @bean.store.present? %>
         <!-- アイコンとラベル -->
         <div class="flex justify-start items-center">
-          <i class="fa-solid fa-map-location text-[25px]"></i>
+          <i class="fa-solid fa-map-location text-xl md:text-2xl"></i>
           <p class="font-bold ml-2"><%= t('.store_map') %></p>
         </div>
         <div class="relative text-sm w-full">
-          <div class="absolute top-4 left-4 bg-white bg-opacity-80 p-4 w-1/2 z-10">
+          <div class="md:absolute top-4 left-4 bg-white bg-opacity-80 p-4 w-full md:w-1/2 z-10 rounded-md">
             <p class="font-bold mb-1"><%= @bean.store.name %></p>
             <p class="mb-2"><%= @bean.store.address %></p>
             <!-- Google Mapsへのリンク -->
             <div class="w-full">
-              <!-- 'target: :_blank'：リンクをクリックした時に別タブで表示する -->
-              <%#= link_to "https://www.google.com/maps/search/?api=1&query=#{@bean.store.name}&query_place_id=#{@bean.store.place_id}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
               <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@bean.store.latitude},#{@bean.store.longitude}", target: :_blank, class: "block w-full text-center py-2 px-4 border border-primary bg-white rounded-sm" do %>
                 <%= t('.to_google_maps') %>
               <% end %>
             </div>
           </div>
           <!-- Google Maps表示エリア -->
-          <div id="map" class="h-[400px] w-full rounded-sm"></div>
+          <div id="map" class="h-48 md:h-96 w-full rounded-lg mt-4 md:mt-0"></div>
         </div>
 
         <!-- 店舗詳細ページへ遷移するボタン-->
         <div class="text-center w-full mt-5 mb-7">
-          <%= link_to t('.to_store_detail'), store_path(@bean.store), class: "btn btn-accent w-[200px] h-[50px]" %>
+          <%= link_to t('.to_store_detail'), store_path(@bean.store), class: "btn btn-accent w-full sm:w-[200px] h-[50px] mx-auto" %>
         </div>
       <% end %>
     </div>
   </article>
 
   <!-- 豆一覧へ戻るボタン -->
-  <div class="text-center w-full mt-[50px]">
-    <%= link_to t('.back_to_bean_index'), beans_path, data: { turbo: false }, class: "btn btn-primary w-[200px] h-[50px]" %>
+  <div class="text-center w-full mt-6">
+    <%= link_to t('.back_to_bean_index'), beans_path, data: { turbo: false }, class: "btn btn-primary w-full sm:w-[200px] h-[50px] mx-auto" %>
   </div>
 </div>
 

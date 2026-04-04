@@ -1,35 +1,33 @@
-<!-- ユーザーがブックマークした豆投稿の一覧が表示されるページ -->
-<div class="flex flex-col items-center w-[1000px] mx-auto">
+<% content_for(:title, t('.title')) %>
+<div class="flex flex-col items-center w-full max-w-[1200px] mx-auto px-4 sm:px-6">
   <div class="w-full text-black">
-    <div class="flex flex-col space-y-5 mt-[50px]">
-      <!-- 遷移先のJSイベントを発火させるためにTurboは無効化 -->
-      <div class="text-right">
-        <%= link_to t('.to_new_post'), new_bean_path, data: { turbo: false }, class: "btn btn-warning w-[200px] h-[50px]" %>
+    <div class="flex flex-col md:flex-row md:space-x-5 space-y-4 md:space-y-0 mt-12 w-full items-end justify-end">
+      <div class="w-full md:w-auto text-right">
+        <%= link_to t('.to_new_post'), new_bean_path, data: { turbo: false }, class: "btn btn-warning w-full sm:w-[200px] h-[50px]" %>
       </div>
 
-      <div class="text-right">
-        <%= link_to t('.back_to_bean_index'), beans_path, class: "btn btn-primary w-[200px] h-[50px]" %>
+      <div class="w-full md:w-auto text-right">
+        <%= link_to t('.back_to_bean_index'), beans_path, class: "btn btn-primary w-full sm:w-[200px] h-[50px]" %>
       </div>
     </div>
 
-    <h2 class="text-center text-4xl font-bold font-heading my-[50px]"><%= t('.title') %></h2>
+    <h2 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold font-heading my-[12px] sm:my-[30px] md:my-[50px]"><%= t('.title') %></h2>
 
     <!-- 検索フォームのパーシャルを表示（ブックマーク一覧用のURLを指定） -->
     <%= render 'search_form', q: @q, url: bookmarks_beans_path %>
 
-    <!-- ブックマークした投稿が存在する場合と、そうでない場合の表示を切り替え -->
     <% if @beans.present? %>
-      <!-- 投稿カードを3列のグリッド形式で表示 -->
-      <div class="grid grid-cols-3 gap-x-[80px] gap-y-[50px] my-[100px]">
+      <!-- 投稿カードをグリッド形式で表示 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-20 gap-y-12 my-24">
         <%= render partial: 'bean', collection: @beans %>
       </div>
 
       <!-- ページネーションのリンクを表示 -->
-      <div class="flex justify-center my-[100px]">
+      <div class="flex justify-center my-24">
         <%= paginate @beans %>
       </div>
     <% else %>
-      <h3 class="text-center text-3xl font-bold font-heading my-[100px]"><%= t('.no_bookmarked_beans') %></h3>
+      <h3 class="text-center text-xl sm:text-2xl md:text-3xl font-bold font-heading my-24"><%= t('.no_bookmarked_beans') %></h3>
     <% end %>
   </div>
 </div>
