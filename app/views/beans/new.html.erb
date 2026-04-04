@@ -1,16 +1,19 @@
-<div class="flex flex-col items-center w-[700px] mx-auto my-[100px]">
+<% content_for(:title, t('.title')) %>
+<div class="flex flex-col items-center w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8">
   <div class="w-full text-black">
-    <div class="text-center font-bold space-y-[10px]">
-      <h2 class="text-4xl font-heading"><%= t('.title') %></h2>
-      <p class="text-base font-body"><%= t('.description') %></p>
+    <div class="text-center font-bold space-y-2 md:space-y-4">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading"><%= t('.title') %></h2>
+      <p class="text-sm sm:text-base md:text-lg font-body"><%= t('.description') %></p>
     </div>
 
-    <!-- 投稿フォームのパーシャルを表示 -->
-    <%= render 'form', bean: @bean %>
+    <div class="mt-6 md:mt-8">
+      <!-- 投稿フォームのパーシャルを表示 -->
+      <%= render 'form', bean: @bean %>
+    </div>
 
     <!-- 豆一覧へ戻るボタン -->
-    <div class="text-center font-body w-full mt-[50px]">
-      <%= link_to t('.back_to_bean_index'), beans_path, class: "btn btn-primary w-[200px] h-[50px]" %>
+    <div class="text-center font-body w-full mt-6 md:mt-10">
+      <%= link_to t('.back_to_bean_index'), beans_path, class: "btn btn-primary w-full sm:w-[200px] h-[50px] mx-auto" %>
     </div>
   </div>
 </div>

@@ -2,94 +2,95 @@
   <%= render "shared/error_messages", object: f.object %>
 
   <!-- 銘柄の入力欄 -->
-  <div class="form-control text-left font-body mt-[50px] mb-[40px]">
+  <div class="form-control text-left font-body mt-6 mb-6">
     <%= f.label :name, class: "label w-full font-bold" %>
-    <%= f.text_field :name, autofocus: true, class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.name') %>
+    <%= f.text_field :name, autofocus: true, class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.name') %>
   </div>
 
   <!-- 生産国の入力欄 -->
-  <div class="form-control text-left font-body mb-[40px]">
+  <div class="form-control text-left font-body mb-6">
     <%= f.label :country, t('.label.country'), class: "label w-full font-bold" %>
-    <!-- bean.countryが存在すれば、それをフィールドの初期値とする -->
+    <!-- 生産国(bean.country)が存在する場合はその値を、存在しない場合は空の文字列を入力欄に表示する -->
     <% if bean.country.present? %>
-      <%= f.text_field :country, autofocus: true, value: bean.country.name, class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
+      <%= f.text_field :country, value: bean.country.name, class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
     <% else %>
-      <%= f.text_field :country, autofocus: true, value: "", class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
+      <%= f.text_field :country, value: "", class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.country') %>
     <% end %>
   </div>
 
-  <div class="flex font-body mb-[40px] space-x-[20px]">
+  <div class="flex flex-col md:flex-row md:space-x-4 mb-6">
     <!-- 生産地区の入力欄 -->
-    <div class="form-control w-1/2 text-left font-body">
+    <div class="form-control w-full md:w-1/2 text-left font-body mb-4 md:mb-0">
       <%= f.label :area, class: "label w-full font-bold" %>
-      <%= f.text_field :area, autofocus: true, class: "input input-bordered input-primary form-control w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.area') %>
+      <%= f.text_field :area, class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.area') %>
     </div>
 
     <!-- 生産農園の入力欄 -->
-    <div class="form-control w-1/2 text-left font-body">
+    <div class="form-control w-full md:w-1/2 text-left font-body">
       <%= f.label :farm, class: "label w-full font-bold" %>
-      <%= f.text_field :farm, autofocus: true, class: "input input-bordered input-primary form-control w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.farm') %>
+      <%= f.text_field :farm, class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.farm') %>
     </div>
   </div>
 
-  <!-- 焙煎度とブレンドorストレートの選択欄 -->
-  <div class="flex font-body mb-[40px] space-x-[20px]">
-    <div class="form-control w-1/2 text-left font-body">
+  <div class="flex flex-col md:flex-row md:space-x-4 mb-6">
+    <!-- 焙煎度の入力欄 -->
+    <div class="form-control w-full md:w-1/2 text-left font-body mb-4 md:mb-0">
       <%= f.label :roast_level, class: "label w-full font-bold" %>
-      <%= f.select :roast_level, Bean.roast_levels_i18n.invert, {}, { class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" } %>
+      <%= f.select :roast_level, Bean.roast_levels_i18n.invert, {}, { class: "select select-bordered select-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]" } %>
     </div>
-    <div class="form-control w-1/2 text-left font-body">
+    <!-- ブレンドの有無の入力欄 -->
+    <div class="form-control w-full md:w-1/2 text-left font-body">
       <%= f.label :is_blended, class: "label w-full font-bold" %>
-      <%= f.select :is_blended, Bean.is_blendeds_i18n.invert, {}, { class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" } %>
+      <%= f.select :is_blended, Bean.is_blendeds_i18n.invert, {}, { class: "select select-bordered select-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]" } %>
     </div>
   </div>
 
-  <!-- 購入店舗情報の入力欄 -->
-  <div class="form-control text-left font-body mt-[50px] mb-[40px]">
+  <!-- 店舗情報の入力欄 -->
+  <div class="form-control text-left font-body mb-6">
     <%= f.label :store, t('.label.store'), class: "label w-full font-bold" %>
-    <!-- bean.storeが存在すれば、それをフィールドの初期値とする -->
+    <!-- 店舗情報(bean.store)が存在する場合はその値を、存在しない場合は空の文字列を入力欄に表示する -->
     <% if bean.store.present? %>
-      <%= f.text_field :store, id: "Store", autofocus: true, value: bean.store.name, autocomplete: "off", class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.store') %>
+      <%= f.text_field :store, id: "Store", value: bean.store.name, autocomplete: "off", class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.store') %>
     <% else %>
-      <%= f.text_field :store, id: "Store", autofocus: true, value: "", autocomplete: "off", class: "input input-bordered input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.store') %>
+      <%= f.text_field :store, id: "Store", value: "", autocomplete: "off", class: "input input-bordered input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.store') %>
     <% end %>
-    <!-- 'hidden_field'で店舗の'place_id'を送信 -->
+    <!-- 店舗情報のplace_idを保持するためのhiddenフィールド -->
     <%= f.hidden_field :place_id, id: "PlaceId" %>
   </div>
 
   <!-- 画像ファイルのアップロード欄 -->
-  <div class="form-control text-left font-body mt-[50px] mb-[40px]">
+  <div class="form-control text-left font-body mb-6">
     <%= f.label :image, class: "label w-full font-bold" %>
-    <%= f.file_field :image, class: "file-input file-input-bordered file-input-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
+    <%= f.file_field :image, class: "file-input file-input-bordered file-input-primary w-full h-12 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px]" %>
     <%= f.hidden_field :image_cache %>
   </div>
 
-  <!-- 味バランスの選択欄（後々レーティング形式に移行する） -->
-  <div class="text-left font-body mb-[40px]">
+  <!-- 味のバランスの入力欄 -->
+  <div class="text-left font-body mb-6">
     <p class="label font-bold"><%= t('.label.taste_balance') %></p>
 
-    <!-- 1行、5列で表示 -->
-    <div class="columns-5">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
       <% ["bitterness", "sweetness", "acidity", "body", "aroma"].each do |attr| %>
-        <%= f.label attr.to_sym, class: "label w-full font-bold" %>
-        <!-- 1~5の整数値をドロップダウンリストから選択 -->
-        <%= f.select attr.to_sym,
-            options_for_select([["1（弱め）", 1], ["2", 2], ["3（中程度）", 3], ["4", 4], ["5（強め）", 5]], f.object.send(attr)),
-            { include_blank: t('.placeholder.taste_balance') },
-            class: "select select-bordered select-primary w-full h-[50px] bg-white border-[3px] border-primary rounded-[10px] text-xs" %>
+        <div>
+          <%= f.label attr.to_sym, class: "label w-full font-bold text-sm" %>
+          <%= f.select attr.to_sym,
+              options_for_select([["1（弱め）", 1], ["2", 2], ["3（中程度）", 3], ["4", 4], ["5（強め）", 5]], f.object.send(attr)),
+              { include_blank: t('.placeholder.taste_balance') },
+              class: "select select-bordered select-primary w-full h-10 sm:h-[50px] bg-white border-[3px] border-primary rounded-[10px] text-xs" %>
+        </div>
       <% end %>
     </div>
   </div>
 
-  <!-- コメント入力欄 -->
-  <div class="form-control text-left font-body mb-[50px]">
+  <!-- コメントの入力欄 -->
+  <div class="form-control text-left font-body mb-6">
     <%= f.label :comment, class: "label w-full font-bold" %>
-    <%= f.text_area :comment, autofocus: true, class: "textarea textarea-bordered textarea-primary w-full h-[200px] bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.comment') %>
+    <%= f.text_area :comment, class: "textarea textarea-bordered textarea-primary w-full h-40 md:h-52 bg-white border-[3px] border-primary rounded-[10px]", placeholder: t('.placeholder.comment') %>
   </div>
 
   <!-- 新規投稿ボタン -->
   <div class="actions text-center w-full">
-    <%= f.submit nil, class: "btn btn-warning w-[200px] h-[50px]", data: { action: "click->loading#show" } %>
+    <%= f.submit nil, class: "btn btn-warning w-full sm:w-[200px] h-[50px] mx-auto", data: { action: "click->loading#show" } %>
   </div>
 <% end %>
 
