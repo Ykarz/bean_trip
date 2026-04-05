@@ -1,17 +1,22 @@
-<div class="navbar bg-accent w-full h-[100px] px-[40px] text-base-100 font-body">
-  <div class="navbar-start flex-none font-bold">
-    <span class="font-bold"><%= t('footer.copyright') %></span>
+<footer class="footer footer-center bg-accent text-base-100 items-center p-6">
+  <!--
+  <nav class="flex flex-wrap justify-center space-x-6 md:space-x-8">
     <%#= link_to "お問い合わせ", "#" %>
-    <%#= link_to "利用規約", "#" %>
-    <%#= link_to "プライバシーポリシー", "#" %>
-  </div>
-  <!-- 右側：XとGitHubへのリンク -->
-  <div class="navbar-end flex-none space-x-[30px]">
-    <%= link_to "https://x.com/basket_blhlc", target: :_blank do%>
-      <i class="fa-brands fa-x-twitter text-[40px]"></i>
-    <% end %>
-    <%= link_to "https://github.com/Ykarz", target: :_blank do%>
-      <i class="fa-brands fa-github text-[40px]"></i>
-    <% end %>
-  </div>
-</div>
+    <%= link_to "利用規約", "#" %>
+    <%= link_to "プライバシーポリシー", "#" %>
+  </nav>
+  -->
+  <aside class="flex justify-between items-center space-x-6 md:space-x-10">
+    <p class="md:text-lg"><%= t('footer.copyright') %></p>
+    <div class="flex items-center space-x-4 md:space-x-6">
+      <!-- Xアカウントへのリンク -->
+      <%= link_to "https://x.com/basket_blhlc", target: :_blank do %>
+        <i class="fa-brands fa-x-twitter text-2xl md:text-4xl"></i>
+      <% end %>
+      <!-- GitHubアカウントへのリンク -->
+      <%= link_to "https://github.com/Ykarz", target: :_blank do %>
+        <i class="fa-brands fa-github text-2xl md:text-4xl"></i>
+      <% end %>
+    </div>
+  </aside>
+</footer>

@@ -31,18 +31,14 @@
         </div>
       </div>
       <div class="flex flex-col h-screen">
-        <header>
-          <%= render 'shared/header' %>
-        </header>
+        <%= render 'shared/header' %>
         <main class="flex-grow overflow-x-hidden">
           <div class="px-[10px]">
             <%= render 'shared/flash_message' %>
           </div>
           <%= yield %>
         </main>
-        <footer>
-          <%= render 'shared/footer' %>
-        </footer>
+        <%= render 'shared/footer' %>
       </div>
     </div>
   </body>
