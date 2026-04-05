@@ -105,6 +105,7 @@ ja:
       success: 豆投稿のブックマークを外しました
   stores:
     index:
+      title: 店舗一覧
       to_show_store: 詳細
     show:
       tab_titles:

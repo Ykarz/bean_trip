@@ -1,14 +1,19 @@
-<div class="flex flex-col w-full h-full mx-auto">
-  <!-- 検索フォームを表示 -->
-  <%= render 'search_form', q: @q, url: stores_path %>
+<% content_for(:title, t('.title')) %>
+<div class="relative w-full min-h-screen mx-auto">
+  <!-- 検索フォームをオーバーレイ表示（レスポンシブ対応） -->
+  <div class="absolute top-14 left-1/2 transform -translate-x-1/2 z-40 w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%]">
+    <div class="bg-transparent p-0 shadow-none">
+      <%= render 'search_form', q: @q, url: stores_path %>
+    </div>
+  </div>
 
-  <!-- 地図を表示するための要素 -->
-  <div id="map" class="w-full h-full"></div>
+  <!-- 地図を画面いっぱいに表示 -->
+  <div id="map" class="w-full h-screen"></div>
 
   <!-- マーカーがクリックされた時に表示される店舗情報の概要のモーダル -->
   <dialog id="store_modal" class="modal">
     <!-- モーダルの本体 -->
-    <div class="modal-box w-[500px]">
+    <div class="modal-box w-full max-w-md md:max-w-lg">
     </div>
   </dialog>
 </div>
@@ -90,8 +95,9 @@
             </div>
           `;
 
-          // class="modal-box"の要素にモーダルの内容を追加
-          document.querySelector('.modal-box').innerHTML = modalContent;
+          // モーダル本体要素を直接取得して内容を差し替え
+          const modalBox = document.getElementById('store_modal').querySelector('.modal-box');
+          modalBox.innerHTML = modalContent;
 
           // モーダルを表示
           const storeModal = document.getElementById('store_modal');
